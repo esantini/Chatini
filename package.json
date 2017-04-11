@@ -1,0 +1,20 @@
+{
+  "name": "Chatini",
+  "version": "1.0.0",
+  "description": "A chat I'm doing to practice MEAN Stack and Typescript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esantini/Chatini.git"
+  },
+  "keywords": [],
+  "author": "'E_Santini'",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esantini/Chatini/issues"
+  },
+  "homepage": "https://github.com/esantini/Chatini#readme"
+}
