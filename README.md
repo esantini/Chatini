@@ -3,8 +3,7 @@ A chat I'm doing to practice MEAN Stack and Typescript.
 
 
 ### Browser chat:
-
-* Create a web service that will:
+Create a web service that will:
 * Allow a browser to connect as a chat client
 * Allow users to identify themselves uniquely (accounts)
 * Allow users to hold a list of other users that mutually wish to keep track of each other. 
