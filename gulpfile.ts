@@ -9,7 +9,7 @@ var wachAll: Array<{ name:string, src: string | string[], dest: string }> = [];
 var wacha: { name: string, src: string | string[], dest: string };
 //
 wacha = {
-	name: "myTypeScripts" ,
+	name: "myTypeScripts",
 	src: 'src/**/*.ts',
 	dest: 'build/'
 };
@@ -94,5 +94,11 @@ var allTasks = (function(){
 	return arr;
 })();
 // allTasks.push('watch_all');
+
+gulp.task('build', function() {
+	gulp.src('node_modules/angular/angular.min.js')
+		.pipe(gulp.dest('build/public/javascripts/angular'));
+});
+allTasks.push('build');
 
 gulp.task('default', allTasks );
