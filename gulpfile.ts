@@ -45,7 +45,7 @@ wacha = {
 	name: "gulpfile",
 	src: 'gulpfile.ts',
 	dest: ''
-}
+};
 wachAll.push(wacha);
 (function(name: string, src: string | string[], dest: string) {
 	
@@ -63,7 +63,7 @@ wacha = {
 	name: "tests",
 	src: 'tests/**/*.ts',
 	dest: 'tests'
-}
+};
 wachAll.push(wacha);
 (function(name: string, src: string | string[], dest: string) {
 	
