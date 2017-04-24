@@ -1,11 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html ng-app="myChatini">
+<head>
+	<title><%= title %></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<% if( process.env.DEV_ENV ) { %>
+		<script type="text/javascript" src="javascripts/angular/angular.min.js" ></script>
+	<% } else { %>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<% } %>
+	<script type="text/javascript" src="javascripts/main.js" ></script>
+</head>
+<body>
+	<div class="container-fluid" ng-controller="myChatsCtrl">
+		<div class="navbar navbar-default">
+			<div class="navbar-header">
+				<a href="" class="navbar-brand">
+					
+					<strong>
+						Chatini
+					</strong>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div id="contactsDiv" class="col-sm-3">
+				<div ng-repeat="chati in chatsList">
+					{{ chati.name }}
+				</div>
+			</div>
+			<div id="chatboxDiv" class="col-sm-9">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio officiis a similique illo accusamus, excepturi nobis. Nihil voluptatem error amet, repellat asperiores, ab autem facere soluta cupiditate deleniti, adipisci! Inventore?
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
