@@ -98,6 +98,15 @@ var allTasks = (function(){
 gulp.task('build', function() {
 	gulp.src('node_modules/angular/angular.min.js')
 		.pipe(gulp.dest('build/public/javascripts/angular'));
+
+	gulp.src('node_modules/bootstrap/dist/js/bootstrap.min.js')
+		.pipe(gulp.dest('build/public/javascripts'));
+
+	gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css')
+		.pipe(gulp.dest('build/public/stylesheets'));
+
+	gulp.src('node_modules/bootstrap/dist/fonts/*')
+		.pipe(gulp.dest('build/public/fonts'));
 });
 allTasks.push('build');
 
