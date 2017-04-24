@@ -8,7 +8,8 @@ a {
 }
 
 #contactsDiv {
-	background-color: lightgray;
+	border: solid 2px lightgray;
+	padding: 5px;
 }
 #chatboxDiv {
 	background-color: bisque;

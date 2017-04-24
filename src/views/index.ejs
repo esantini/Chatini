@@ -2,29 +2,47 @@
 <html ng-app="myChatini">
 <head>
 	<title><%= title %></title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-	<link rel='stylesheet' href='/stylesheets/style.css' />
+
 	<% if( process.env.DEV_ENV ) { %>
 		<script type="text/javascript" src="javascripts/angular/angular.min.js" ></script>
+		<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
 	<% } else { %>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 	<% } %>
+	
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+
 	<script type="text/javascript" src="javascripts/main.js" ></script>
+	
 </head>
 <body>
 	<div class="container-fluid" ng-controller="myChatsCtrl">
 		<div class="navbar navbar-default">
 			<div class="navbar-header">
 				<a href="" class="navbar-brand">
-					
 					<strong>
 						Chatini
 					</strong>
 				</a>
 			</div>
 		</div>
+
 		<div class="row">
 			<div id="contactsDiv" class="col-sm-3">
+
+				<ul class="nav nav-tabs">
+					<li role="chatcategories" class="active"><a href="#">
+						<span class="glyphicon glyphicon-asterisk"></span>
+					</a></li>
+					<li role="chatcategories"><a href="#">
+						<span class="glyphicon glyphicon-user"></span>
+					</a></li>
+					<li role="chatcategories"><a href="#">
+						<span class="glyphicon glyphicon-th-large"></span>
+					</a></li>
+				</ul>
+
 				<div ng-repeat="chati in chatsList">
 					{{ chati.name }}
 				</div>
