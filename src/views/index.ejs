@@ -5,18 +5,25 @@
 
 	<% if( process.env.DEV_ENV ) { %>
 		<script type="text/javascript" src="javascripts/angular/angular.min.js" ></script>
+		<!--<script type="text/javascript" src="javascripts/jquery.min.js" ></script>
+		<script type="text/javascript" src="javascripts/bootstrap.min.js" ></script>-->
 		<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
 	<% } else { %>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<script type="text/javascript"
+			src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"
+			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+		<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' />
 	<% } %>
 	
 	<link rel='stylesheet' href='/stylesheets/style.css' />
 
 	<script type="text/javascript" src="javascripts/main.js" ></script>
-	
+
 </head>
 <body>
+<div id="wrap">
 	<div class="container-fluid" ng-controller="myChatsCtrl">
 		<div class="navbar navbar-default">
 			<div class="navbar-header">
@@ -32,27 +39,42 @@
 			<div id="contactsDiv" class="col-sm-3">
 
 				<ul class="nav nav-tabs">
-					<li role="chatcategories" class="active"><a href="#">
-						<span class="glyphicon glyphicon-asterisk"></span>
-					</a></li>
-					<li role="chatcategories"><a href="#">
-						<span class="glyphicon glyphicon-user"></span>
-					</a></li>
-					<li role="chatcategories"><a href="#">
-						<span class="glyphicon glyphicon-th-large"></span>
-					</a></li>
+					<li role="chatcategories" class="active chatcategory all">
+						<a href="#" ng-click="chatCategoryClick('all')">
+							<span class="glyphicon glyphicon-asterisk"></span>
+						</a>
+					</li>
+					<li role="chatcategories" class="chatcategory user">
+						<a href="#" ng-click="chatCategoryClick('user')">
+							<span class="glyphicon glyphicon-user"></span>
+						</a>
+					</li>
+					<li role="chatcategories" class="chatcategory group">
+						<a href="#" ng-click="chatCategoryClick('group')">
+							<span class="glyphicon glyphicon-th-large"></span>
+						</a>
+					</li>
 				</ul>
 
-				<div ng-repeat="chati in chatsList">
-					{{ chati.name }}
+				<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+					<button type="button" class="btn btn-default btn-chati" ng-repeat="chati in chatsList | categoryFilter: chatCategory">
+						<span class="glyphicon glyphicon-{{ chati.category == 'group' && 'th-large' || 'user' }}" ></span>
+						{{ chati.name }}
+					</button>
 				</div>
 			</div>
 			<div id="chatboxDiv" class="col-sm-9">
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio officiis a similique illo accusamus, excepturi nobis. Nihil voluptatem error amet, repellat asperiores, ab autem facere soluta cupiditate deleniti, adipisci! Inventore?
-				</p>
+				<div style="background-color:aliceblue; width: 100%; height: 100% ">
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio officiis a similique illo accusamus, excepturi nobis. Nihil voluptatem error amet, repellat asperiores, ab autem facere soluta cupiditate deleniti, adipisci! Inventore?
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
+<div>
+	FOOTER;
+</div>
 </body>
 </html>

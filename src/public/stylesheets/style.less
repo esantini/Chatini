@@ -1,0 +1,70 @@
+
+@link-color: #00B7FF;
+@border-color: lightgray;
+
+@bgCreamColor: #fff7ef;
+@selectedCategoryColor: @bgCreamColor;
+
+@footerHeight: 40px;
+
+.myBorder {
+	border: 2px solid @border-color;
+	border-radius: 5px;
+}
+
+html, body {
+	height: 100%;
+}
+
+body{
+	padding: 0 50px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+div#wrap {
+	min-height: 100%;
+	height: auto;
+	/* Negative indent footer by its height */
+	margin: 0 auto -@footerHeight;
+	/* Pad bottom by footer height */
+	padding: 0 0 @footerHeight;
+	
+}
+body div.container-fluid {
+
+	background-color: lightgreen;
+	padding: 10px;
+}
+
+a {
+	color: @link-color;
+}
+
+
+
+#contactsDiv {
+	.myBorder;
+	padding: 5px;
+
+	> ul > li.active.chatcategory > a {
+		background-color: @selectedCategoryColor;
+	}
+
+	// Wrapper for the buttons.
+	> div.btn-group-vertical {
+		width: 100%;
+		padding: 5px;
+		border: 1px solid #ddd;
+		border-top: 0px;
+		border-radius: 0 0 4px 4px;
+		background-color: @selectedCategoryColor;
+	}
+	// Individual Chat person/group button.
+	// > div > button.btn.btn-chati {}
+}
+
+#chatboxDiv {
+	background-color: @bgCreamColor;
+	.myBorder;
+	min-height: 300px;
+	
+}
