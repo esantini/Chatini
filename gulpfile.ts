@@ -4,6 +4,9 @@
 
 import * as gulp from 'gulp';
 import * as tsc from 'gulp-typescript';
+import * as less from 'gulp-less';
+import * as path from 'path';
+
 //
 interface Wacha {
 	taskName: string,
@@ -25,6 +28,26 @@ wachAll.push(wacha);
 	gulp.task( name , function() {
 		gulp.src(src)
 			.pipe(tsProject())
+			.pipe(gulp.dest( dest ));
+	});
+})(wacha.taskName, wacha.src, wacha.dest);
+
+//
+//
+
+wacha = {
+	taskName: "myLess",
+	src: 'src/**/*.less',
+	dest: 'build/'
+};
+wachAll.push(wacha);
+(function(name: string, src: string | string[], dest: string): void {
+	var tsProject = tsc.createProject('tsconfig.json');
+	gulp.task( name , function() {
+		gulp.src(src)
+			.pipe(less({
+				paths: [ path.join(__dirname, 'less', 'includes')]
+			}))
 			.pipe(gulp.dest( dest ));
 	});
 })(wacha.taskName, wacha.src, wacha.dest);
