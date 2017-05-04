@@ -3,25 +3,56 @@ var myApp = angular.module("myChatini", []);
 
 interface ChatType {
 	name: string,
-	category: string
+	category: string,
+	messages: Message[]
 }
+interface Message {
+	from: string,
+	message: string | Drawing,
+	date: Date
+}
+interface Drawing {};
 interface MyChatsScope {
 	chatsList: Array<ChatType>,
 	chatCategory: string,
-	chatCategoryClick: Function
+	chatCategoryClick: Function,
+	textToSend: string,
+	sendMsg: Function
 }
 
 myApp.controller('myChatsCtrl', function($scope: MyChatsScope) {
 	
 	$scope.chatsList = [
 		{	name: 'chatGroup1',
-			category: 'group' },
-		{
-			name: 'chatGroup2',
-			category: 'group' },
+			category: 'group',
+			messages: [ 
+				{
+					from: 'userio1',
+					message: 'quiubo!',
+					date: new Date()
+				},
+				{
+					from: 'userio1',
+					message: 'quiubo!',
+					date: new Date()
+				}, {
+					from: 'me',
+					message: 'weep!',
+					date: new Date()
+				}, {
+					from: 'me',
+					message: 'weep!!',
+					date: new Date()
+				}
+			]
+		},
+		{	name: 'chatGroup2',
+			category: 'group',
+			messages: [] },
 		{
 			name: 'chatPerson1',
-			category: 'user'
+			category: 'user',
+			messages: []
 		}
 	];
 	$scope.chatCategory = 'all';
@@ -34,6 +65,10 @@ myApp.controller('myChatsCtrl', function($scope: MyChatsScope) {
 		angular.element(document.querySelector('.chatcategory.active')).removeClass('active');
 		angular.element(document.querySelector('.chatcategory.'+type)).addClass('active');
 
+	};
+	
+	$scope.sendMsg = function() {
+		console.log('sending message:', $scope.textToSend);
 	}
 });
 

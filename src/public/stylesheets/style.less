@@ -7,19 +7,24 @@
 
 @footerHeight: 40px;
 
+a {
+	color: @link-color;
+}
 .myBorder {
 	border: 2px solid @border-color;
 	border-radius: 5px;
 }
 
 html, body {
-	height: 100%;
+	height: 100vh;
 }
 
 body{
 	padding: 0 50px;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+/* Wrapper for page content to push down footer */
 div#wrap {
 	min-height: 100%;
 	height: auto;
@@ -27,44 +32,94 @@ div#wrap {
 	margin: 0 auto -@footerHeight;
 	/* Pad bottom by footer height */
 	padding: 0 0 @footerHeight;
+}
+#headerDiv {
+	//height: inherit;
+}
+#contentDiv {
+	
+	height: 100%;
+	position: relative;
+	margin-bottom: 10px;
 	
 }
-body div.container-fluid {
-
-	background-color: lightgreen;
-	padding: 10px;
-}
-
-a {
-	color: @link-color;
-}
-
-
-
-#contactsDiv {
+#footer {
+	background-color: lightblue;
+	height: @footerHeight;
 	.myBorder;
-	padding: 5px;
+}
 
-	> ul > li.active.chatcategory > a {
-		background-color: @selectedCategoryColor;
+#chatContainer {
+	background-color: lightyellow;
+	//position:absolute;
+
+	margin: 10px 0px;
+
+	#chatboxDiv {
+		padding-top: 15px;
+		padding-bottom: 15px;
+		min-height: 300px;
+		background-color: lightcyan;
+
+		.myBorder;
+
+		#conversationDiv {
+			width: 100%;
+			min-height: 200px;
+			background-color: lightgray;
+
+			.message {
+				min-width: 40%;
+				margin: 10px;
+			}
+			.message.mine {
+				float: right;
+				clear: both;
+			}
+			.message.other {
+				float: left;
+				clear: both;
+			}
+		}
+		
+		#messageControlsDiv {
+			div {
+				padding: 0;
+			}
+			textarea {
+				resize: none;
+			}
+			.btn {
+				width: 100%;
+				position: relative;
+				margin: auto;
+			}
+		}
 	}
 
-	// Wrapper for the buttons.
-	> div.btn-group-vertical {
-		width: 100%;
-		padding: 5px;
-		border: 1px solid #ddd;
-		border-top: 0px;
-		border-radius: 0 0 4px 4px;
-		background-color: @selectedCategoryColor;
-	}
-	// Individual Chat person/group button.
-	// > div > button.btn.btn-chati {}
-}
+	#contactsDiv {
+		min-height: 300px;
+		.myBorder;
 
-#chatboxDiv {
-	background-color: @bgCreamColor;
-	.myBorder;
-	min-height: 300px;
+		> ul > li.active.chatcategory > a {
+			background-color: @selectedCategoryColor;
+		}
+
+		// Wrapper for the buttons.
+		> div.btn-group-vertical {
+			width: 100%;
+			padding: 5px;
+			border: 1px solid #ddd;
+			border-top: 0px;
+			border-radius: 0 0 4px 4px;
+			background-color: @selectedCategoryColor;
+			margin-bottom:10px;
+		}
+		// Individual Chat person/group button.
+		// > div > button.btn.btn-chati {}
+	}
 	
 }
+
+
+

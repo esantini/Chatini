@@ -24,7 +24,7 @@
 </head>
 <body>
 <div id="wrap">
-	<div class="container-fluid" ng-controller="myChatsCtrl">
+	<div id="headerDiv">
 		<div class="navbar navbar-default">
 			<div class="navbar-header">
 				<a href="" class="navbar-brand">
@@ -34,9 +34,11 @@
 				</a>
 			</div>
 		</div>
+	</div>
 
-		<div class="row">
-			<div id="contactsDiv" class="col-sm-3">
+	<div id="contentDiv">
+		<div id="chatContainer" class="row" ng-controller="myChatsCtrl">
+			<div id="contactsDiv" class="col-md-3">
 
 				<ul class="nav nav-tabs">
 					<li role="chatcategories" class="active chatcategory all">
@@ -63,18 +65,40 @@
 					</button>
 				</div>
 			</div>
-			<div id="chatboxDiv" class="col-sm-9">
-				<div style="background-color:aliceblue; width: 100%; height: 100% ">
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio officiis a similique illo accusamus, excepturi nobis. Nihil voluptatem error amet, repellat asperiores, ab autem facere soluta cupiditate deleniti, adipisci! Inventore?
-					</p>
+			<div id="chatboxDiv" class="col-md-9">
+				<div id="conversationDiv">
+					<div ng-repeat="message in chatsList[0].messages">
+						<div class="panel message {{ message.from == 'me' && 'panel-success mine' || 'other' }}">
+							
+							<div class="panel-heading">
+								{{message.message}}
+							</div>
+							
+						</div>
+					</div>
+					<div style="clear:both"></div>
+				</div>
+				<div id="messageControlsDiv">
+					<div class="col-sm-10">
+						<textarea class="form-control" ng-model="textToSend"></textarea>
+					</div>
+					<div class="col-sm-2">
+						<a href="" class="btn btn-success" ng-click="sendMsg()">
+							<span class="glyphicon glyphicon-send"></span>
+							Send
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div>
+<div id="footer">
 	FOOTER;
 </div>
+
+<% if( process.env.DEV_ENV ) { %>
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+<% } %>
 </body>
 </html>
