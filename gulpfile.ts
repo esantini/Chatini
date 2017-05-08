@@ -8,21 +8,21 @@ import * as less from 'gulp-less';
 import * as path from 'path';
 
 //
-interface Wacha {
+interface TaskToWatch {
 	taskName: string,
 	src: string | string[],
 	dest: string
 }
-var wacha: Wacha;
-var wachAll: Array<Wacha> = [];
+var watchTask: TaskToWatch;
+var wachAll: Array<TaskToWatch> = [];
 
 //
-wacha = {
+watchTask = {
 	taskName: "myTypeScripts",
 	src: 'src/**/*.ts',
 	dest: 'build/'
 };
-wachAll.push(wacha);
+wachAll.push(watchTask);
 (function(name: string, src: string | string[], dest: string): void {
 	var tsProject = tsc.createProject('tsconfig.json');
 	gulp.task( name , function() {
@@ -30,17 +30,17 @@ wachAll.push(wacha);
 			.pipe(tsProject())
 			.pipe(gulp.dest( dest ));
 	});
-})(wacha.taskName, wacha.src, wacha.dest);
+})(watchTask.taskName, watchTask.src, watchTask.dest);
 
 //
 //
 
-wacha = {
+watchTask = {
 	taskName: "myLess",
 	src: 'src/**/*.less',
 	dest: 'build/'
 };
-wachAll.push(wacha);
+wachAll.push(watchTask);
 (function(name: string, src: string | string[], dest: string): void {
 	var tsProject = tsc.createProject('tsconfig.json');
 	gulp.task( name , function() {
@@ -50,17 +50,17 @@ wachAll.push(wacha);
 			}))
 			.pipe(gulp.dest( dest ));
 	});
-})(wacha.taskName, wacha.src, wacha.dest);
+})(watchTask.taskName, watchTask.src, watchTask.dest);
 
 //
 //
 
-wacha = {
+watchTask = {
 	taskName: "move_plain_files",
 	src: ['src/**/*', '!src/**/*.ts', '!src/**/*.less'],
 	dest: 'build/'
 };
-wachAll.push(wacha);
+wachAll.push(watchTask);
 (function(name: string, src: string | string[], dest: string) {
 	
 	gulp.task(name, function() {
@@ -68,14 +68,14 @@ wachAll.push(wacha);
 			.pipe(gulp.dest(dest));
 	});
 
-})(wacha.taskName, wacha.src, wacha.dest);
+})(watchTask.taskName, watchTask.src, watchTask.dest);
 //
-wacha = {
+watchTask = {
 	taskName: "gulpfile",
 	src: 'gulpfile.ts',
 	dest: ''
 };
-wachAll.push(wacha);
+wachAll.push(watchTask);
 (function(name: string, src: string | string[], dest: string) {
 	
 	gulp.task(name, function() {
@@ -85,15 +85,15 @@ wachAll.push(wacha);
 			.pipe(gulp.dest(dest));
 	});
 
-})(wacha.taskName, wacha.src, wacha.dest);
+})(watchTask.taskName, watchTask.src, watchTask.dest);
 //
 //
-wacha = {
+watchTask = {
 	taskName: "tests",
 	src: 'tests/**/*.ts',
 	dest: 'tests'
 };
-wachAll.push(wacha);
+wachAll.push(watchTask);
 (function(name: string, src: string | string[], dest: string) {
 	
 	gulp.task(name, function() {
@@ -103,10 +103,10 @@ wachAll.push(wacha);
 			.pipe(gulp.dest(dest));
 	});
 
-})(wacha.taskName, wacha.src, wacha.dest);
+})(watchTask.taskName, watchTask.src, watchTask.dest);
 // 
 // 
-gulp.task('watch_all', function() {
+gulp.task('wacha', function() {
 	wachAll.forEach(wacha => {
 		// var src:string = typeof wacha.src === 'string' ?  wacha.src : wacha.src[0];
 		gulp.watch(wacha.src, [wacha.taskName]);
