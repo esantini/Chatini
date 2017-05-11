@@ -69,9 +69,11 @@ wachAll.push(watchTask);
 
 	gulp.task( name , function() {
 		gulp.src(src)
+			.pipe(sourcemaps.init())
 			.pipe(less({
 				paths: [ path.join(__dirname, 'less', 'includes')]
 			}).on('error', gUtil.log))
+			.pipe(sourcemaps.write('.'))
 			.pipe(gulp.dest( dest ));
 	});
 
@@ -182,12 +184,14 @@ gulp.task('build', function() {
 
 		gulp.src('node_modules/angular-route/angular-route.js')
 			.pipe(gulp.dest('build/public/javascripts/angular'));
-	}
-	// gulp.src('node_modules/bootstrap/dist/js/bootstrap.min.js')
-	// 	.pipe(gulp.dest('build/public/javascripts'));
+		// gulp.src('node_modules/bootstrap/dist/js/bootstrap.min.js')
+		// 	.pipe(gulp.dest('build/public/javascripts'));
 
-	gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css')
-		.pipe(gulp.dest('build/public/stylesheets'));
+		gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css')
+			.pipe(gulp.dest('build/public/stylesheets'));
+		gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css.map')
+			.pipe(gulp.dest('build/public/stylesheets'));
+	}
 
 	gulp.src('node_modules/bootstrap/dist/fonts/*')
 		.pipe(gulp.dest('build/public/fonts'));
