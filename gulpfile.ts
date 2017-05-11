@@ -42,7 +42,7 @@ wachAll.push(watchTask);
 			
 			.pipe(sourcemaps.init())
 				.pipe(tsProject())
-			.pipe(sourcemaps.write('.'))
+			.pipe(sourcemaps.write('.', { sourceRoot: '../src/', includeContent: false }))
 			.pipe(gulp.dest( dest ));
 
 		gulp.src(clientScripts)
@@ -82,6 +82,7 @@ wachAll.push(watchTask);
 //
 //
 
+// Flatten is being used to remove the source's relative path
 import * as flatten from 'gulp-flatten';
 watchTask = {
 	taskName: "myViews",
