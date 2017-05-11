@@ -1,5 +1,5 @@
 
-var myApp = angular.module("myChatini", []);
+var myApp = angular.module("myChatini", ['ngRoute']);
 
 interface ChatType {
 	name: string,
@@ -11,7 +11,7 @@ interface Message {
 	message: string | Drawing,
 	date: Date
 }
-interface Drawing {};
+interface Drawing {}
 interface MyChatsScope {
 	chatsList: Array<ChatType>,
 	chatCategory: string,
@@ -21,7 +21,6 @@ interface MyChatsScope {
 }
 
 myApp.controller('myChatsCtrl', function($scope: MyChatsScope) {
-	
 	$scope.chatsList = [
 		{	name: 'chatGroup1',
 			category: 'group',

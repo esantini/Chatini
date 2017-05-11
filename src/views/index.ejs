@@ -4,13 +4,16 @@
 	<title><%= title %></title>
 
 	<% if( process.env.DEV_ENV ) { %>
-		<script type="text/javascript" src="javascripts/angular/angular.min.js" ></script>
+		<script type="text/javascript" src="javascripts/angular/angular.js" ></script>
+		<script type="text/javascript" src="javascripts/angular/angular-route.js" ></script>
 		<!--<script type="text/javascript" src="javascripts/jquery.min.js" ></script>
 		<script type="text/javascript" src="javascripts/bootstrap.min.js" ></script>-->
 		<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
 	<% } else { %>
 		<script type="text/javascript"
 			src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script type="text/javascript"
+			src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
 		<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"
 			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
@@ -19,7 +22,7 @@
 	
 	<link rel='stylesheet' href='/stylesheets/style.css' />
 
-	<script type="text/javascript" src="javascripts/main.js" ></script>
+	<script type="text/javascript" src="javascripts/main.min.js" ></script>
 
 </head>
 <body>
@@ -36,62 +39,8 @@
 		</div>
 	</div>
 
-	<div id="contentDiv">
-		<div id="chatContainer" class="row" ng-controller="myChatsCtrl">
-			<div id="contactsDiv" class="col-md-3">
+	<div ng-view></div>
 
-				<ul class="nav nav-tabs">
-					<li role="chatcategories" class="active chatcategory all">
-						<a href="#" ng-click="chatCategoryClick('all')">
-							<span class="glyphicon glyphicon-asterisk"></span>
-						</a>
-					</li>
-					<li role="chatcategories" class="chatcategory user">
-						<a href="#" ng-click="chatCategoryClick('user')">
-							<span class="glyphicon glyphicon-user"></span>
-						</a>
-					</li>
-					<li role="chatcategories" class="chatcategory group">
-						<a href="#" ng-click="chatCategoryClick('group')">
-							<span class="glyphicon glyphicon-th-large"></span>
-						</a>
-					</li>
-				</ul>
-
-				<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-					<button type="button" class="btn btn-default btn-chati" ng-repeat="chati in chatsList | categoryFilter: chatCategory">
-						<span class="glyphicon glyphicon-{{ chati.category == 'group' && 'th-large' || 'user' }}" ></span>
-						{{ chati.name }}
-					</button>
-				</div>
-			</div>
-			<div id="chatboxDiv" class="col-md-9">
-				<div id="conversationDiv">
-					<div ng-repeat="message in chatsList[0].messages">
-						<div class="panel message {{ message.from == 'me' && 'panel-success mine' || 'other' }}">
-							
-							<div class="panel-heading">
-								{{message.message}}
-							</div>
-							
-						</div>
-					</div>
-					<div style="clear:both"></div>
-				</div>
-				<div id="messageControlsDiv">
-					<div class="col-sm-10">
-						<textarea class="form-control" ng-model="textToSend"></textarea>
-					</div>
-					<div class="col-sm-2">
-						<a href="" class="btn btn-success" ng-click="sendMsg()">
-							<span class="glyphicon glyphicon-send"></span>
-							Send
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
 <div id="footer">
 	FOOTER;

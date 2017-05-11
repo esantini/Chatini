@@ -4,9 +4,13 @@ import * as favicon from 'serve-favicon';
 import * as logger from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
+import * as passport from 'passport';
 
-import index = require('./routes/index');
-import users = require('./routes/users');
+
+// Bring in the data model
+import './modules/core/server/db';
+// Bring in the Passport config after model is defined
+import './modules/users/server/config/strategies/local';
 
 var app = express();
 
@@ -26,8 +30,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+
+// Initialise Passport before using the route middleware
+app.use(passport.initialize());
+
+import routesApi = require('./routes.index');
+app.use('/api', routesApi);
+
+app.use('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+	res.render('index', { title: 'Chatini' });
+});
 
 
 
