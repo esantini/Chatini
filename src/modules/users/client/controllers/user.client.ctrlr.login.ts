@@ -17,7 +17,6 @@
 		};
 
 		vm.onSubmit = function () {
-			console.log(vm);
 			authentication
 				.login(vm.credentials)
 				.then(

@@ -95,14 +95,15 @@ UserSchema.methods.validPassword = function(password: string) {
 }
 
 UserSchema.methods.generateJwt = function() {
-	var expiry = new Date();
+	var expiry: Date | number = new Date();
 	expiry.setDate(expiry.getDate() + 7);
-
+	expiry = parseInt(expiry.getTime() / 1000 as any);
+	
 	return JWT.sign({
 		_id: this._id,
 		email: this.email,
 		name: this.name,
-		exp: expiry.getTime() / 1000,
+		exp: expiry,
 
 	}, "MY_SECRET"); //TODO set secret in environment variable.
 }
