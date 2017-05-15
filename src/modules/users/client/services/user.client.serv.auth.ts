@@ -49,13 +49,13 @@ function authentication ($http: angular.IHttpService, $window: angular.IWindowSe
 
 	var register = function(user: any) {
 		return $http.post('/api/register', user).then(function(data: any){
-			saveToken(data.token);
+			saveToken(data.data.token);
 		});
 	};
 
 	var login = function(user: any) {
 		return $http.post('/api/login', user).then(function(data: any) {
-			saveToken(data.token);
+			saveToken(data.data.token);
 		});
 	};
 
