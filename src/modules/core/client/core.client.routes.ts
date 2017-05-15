@@ -45,7 +45,10 @@
 				authentication: any) {
 		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 			if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
-				$location.path('/');
+				$location.path('/login');
+			}
+			else if (($location.path() === '/login' || $location.path() === '/register') && authentication.isLoggedIn()) {
+				$location.path('/profile');
 			}
 		});
 	}
