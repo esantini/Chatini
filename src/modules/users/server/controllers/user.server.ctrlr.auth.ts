@@ -11,7 +11,7 @@ export const register = function(req: express.Request, res: express.Response) {
 	
 	var user = (new User() as MyUser);
 	
-	user.name = req.body.firstName;
+	user.name = req.body.name;
 	user.email = req.body.email;
 	
 	user.setPassword(req.body.password);

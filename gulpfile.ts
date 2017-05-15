@@ -82,14 +82,14 @@ wachAll.push(watchTask);
 //
 //
 
-// Flatten is being used to remove the source's relative path
-import * as flatten from 'gulp-flatten';
 watchTask = {
 	taskName: "myViews",
 	src: 'src/modules/**/client/views/**/*.html',
 	dest: 'build/public/views/'
 };
 wachAll.push(watchTask);
+// Flatten is being used to remove the source's relative path
+import * as flatten from 'gulp-flatten';
 (function(name: string, src: string | string[], dest: string): void {
 
 	gulp.task( name , function() {
