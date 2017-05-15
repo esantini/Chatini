@@ -45,7 +45,7 @@ wachAll.push(watchTask);
 			.pipe(sourcemaps.write('.', { sourceRoot: '../src/', includeContent: false }))
 			.pipe(gulp.dest( dest ));
 
-		gulp.src(clientScripts)
+		gulp.src( [ './src/modules/core/client/main.ts', clientScripts ] )
 			
 			.pipe(sourcemaps.init())
 				.pipe(tsProject2())
