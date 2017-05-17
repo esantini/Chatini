@@ -12,11 +12,11 @@ authentication.$inject = ['$http', '$window'];
 function authentication ($http: angular.IHttpService, $window: angular.IWindowService) {
 
 	var saveToken = function (token: any) {
-		$window.localStorage['mean-token'] = token;
+		$window.localStorage['user-token'] = token;
 	};
 
 	var getToken = function () {
-		return $window.localStorage['mean-token'];
+		return $window.localStorage['user-token'];
 	};
 
 	var isLoggedIn = function() {
@@ -60,7 +60,7 @@ function authentication ($http: angular.IHttpService, $window: angular.IWindowSe
 	};
 
 	var logout = function() {
-		$window.localStorage.removeItem('mean-token');
+		$window.localStorage.removeItem('user-token');
 	};
 
 	return {
