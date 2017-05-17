@@ -1,37 +1,42 @@
-/// <reference types="angular" />
-/// <reference types="angular-route" />
-
 (function () {
 
 	angular.module('myChatini');
 
 	function config (
-				$routeProvider: angular.route.IRouteProvider,
+				$stateProvider: angular.ui.IStateProvider,
+				$urlRouterProvider: angular.ui.IUrlRouterProvider,
 				$locationProvider: angular.ILocationProvider ) {
 		
-		$routeProvider
-			.when('/', {
+		$stateProvider
+			.state('home', {
+				url: '/',
 				templateUrl: '/views/core.home.html',
 				controller: 'homeCtrl',
 				controllerAs: 'vm'
 			})
-			.when('/register', {
+			.state('register', {
+				url: '/register',
 				templateUrl: '/views/user.register.html',
 				controller: 'registerCtrl',
 				controllerAs: 'vm'
 			})
-			.when('/login', {
+			.state('login', {
+				url: '/login',
 				templateUrl: '/views/user.login.html',
 				controller: 'loginCtrl',
 				controllerAs: 'vm'
 			})
-			.when('/profile', {
+			.state('profile', {
+				url: '/profile',
 				templateUrl: '/views/user.profile.html',
 				controller: 'profileCtrl',
 				controllerAs: 'vm'
-			})
-			.otherwise({redirectTo: '/'});
+			});
 
+		$urlRouterProvider.otherwise('/');
+
+		
+		//TODO: still needed after changing from ngRoute to ui-router ?
 		// use the HTML5 History API
 		$locationProvider.html5Mode({
 			enabled: true,
@@ -55,7 +60,7 @@
 	
 	angular
 		.module('myChatini')
-		.config(['$routeProvider', '$locationProvider', config])
+		.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', config])
 		.run(['$rootScope', '$location', 'authentication', run]);
 
 })();
