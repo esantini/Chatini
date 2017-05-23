@@ -1,6 +1,3 @@
-/// <reference types="angular" />
-/// <reference types="angular-route" />
-
 (function () {
 
 	angular
