@@ -45,15 +45,35 @@
 	}
 
 	function run(
-				$rootScope: angular.IRootScopeService, 
-				$location: angular.ILocationService, 
-				authentication: any) {
-		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-			if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
-				$location.path('/login');
+				$rootScope: angular.IRootScopeService,
+				$location: angular.ILocationService,
+				authentication: any,
+				$transitions: any) {
+
+		// Only logged in users may see /profile
+		$transitions.onBefore({to: 'profile'}, function( transition: any ) {
+
+			if(!authentication.isLoggedIn()) {
+				// solution from: https://stackoverflow.com/a/40177897/3987900 
+					// note: solution says I should return true to stop transition, seems like it's wrong.
+				transition.router.stateService.transitionTo('login');
+				return false;
 			}
-			else if (($location.path() === '/login' || $location.path() === '/register') && authentication.isLoggedIn()) {
-				$location.path('/profile');
+		});
+
+		// If already logged in, redirect to 'profile'
+		$transitions.onBefore({to: 'login'}, function( transition: any ) {
+			if( authentication.isLoggedIn() ) {
+				transition.router.stateService.transitionTo('profile');
+				return false;
+			}
+		});
+
+		// 'register' does the same thing as 'login', can they be grouped?
+		$transitions.onBefore({to: 'register'}, function( transition: any ) {
+			if( authentication.isLoggedIn() ) {
+				transition.router.stateService.transitionTo('profile');
+				return false;
 			}
 		});
 	}
@@ -61,6 +81,6 @@
 	angular
 		.module('myChatini')
 		.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', config])
-		.run(['$rootScope', '$location', 'authentication', run]);
+		.run(['$rootScope', '$location', 'authentication', '$transitions', run]);
 
 })();
