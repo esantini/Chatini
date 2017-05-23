@@ -184,9 +184,9 @@ gulp.task('build', function() {
 			.pipe(gulp.dest('build/public/javascripts/angular'));
 
 		//gulp.src('node_modules/angular-route/angular-route.js')
-		gulp.src('node_modules/angular-ui-router/release/angular-ui-router.js')
+		gulp.src('node_modules/@uirouter/angularjs/release/angular-ui-router.js')
 			.pipe(gulp.dest('build/public/javascripts/angular'));
-		gulp.src('node_modules/angular-ui-router/release/angular-ui-router.js.map')
+		gulp.src('node_modules/@uirouter/angularjs/release/angular-ui-router.js.map')
 			.pipe(gulp.dest('build/public/javascripts/angular'));
 
 		gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css')

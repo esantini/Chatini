@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/esantini/Chatini#readme",
   "dependencies": {
-    "angular-ui-router": "^1.0.3",
+    "@uirouter/angularjs": "^1.0.3",
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",
     "cookie-parser": "~1.4.3",
