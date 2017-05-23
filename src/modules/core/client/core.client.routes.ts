@@ -62,20 +62,16 @@
 		});
 
 		// If already logged in, redirect to 'profile'
-		$transitions.onBefore({to: 'login'}, function( transition: any ) {
-			if( authentication.isLoggedIn() ) {
-				transition.router.stateService.transitionTo('profile');
-				return false;
-			}
-		});
-
+		$transitions.onBefore({to: 'login'}, if_user_is_already_logged_in);
 		// 'register' does the same thing as 'login', can they be grouped?
-		$transitions.onBefore({to: 'register'}, function( transition: any ) {
+		$transitions.onBefore({to: 'register'}, if_user_is_already_logged_in);
+		
+		function if_user_is_already_logged_in( transition: any ) {
 			if( authentication.isLoggedIn() ) {
 				transition.router.stateService.transitionTo('profile');
 				return false;
 			}
-		});
+		}
 	}
 	
 	angular
