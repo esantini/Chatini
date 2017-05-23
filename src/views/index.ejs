@@ -5,13 +5,13 @@
 
 	<% if( process.env.DEV_ENV ) { %>
 		<script type="text/javascript" src="javascripts/angular/angular.js" ></script>
-		<script type="text/javascript" src="javascripts/angular/angular-route.js" ></script>
+		<script type="text/javascript" src="javascripts/angular/angular-ui-router.js" ></script>
 		<!--<script type="text/javascript" src="javascripts/jquery.min.js" ></script>
 		<script type="text/javascript" src="javascripts/bootstrap.min.js" ></script>-->
 		<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
 	<% } else { %>
 		<script type="text/javascript"
-			src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+			src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
 		<script type="text/javascript"
 			src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
 		<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"
@@ -30,7 +30,7 @@
 	
 	<navigation></navigation>
 
-	<div ng-view></div>
+	<div ui-view></div>
 	
 </div>
 <div id="footer">

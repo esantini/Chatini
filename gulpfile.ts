@@ -183,10 +183,11 @@ gulp.task('build', function() {
 		gulp.src('node_modules/angular/angular.js')
 			.pipe(gulp.dest('build/public/javascripts/angular'));
 
-		gulp.src('node_modules/angular-route/angular-route.js')
+		//gulp.src('node_modules/angular-route/angular-route.js')
+		gulp.src('node_modules/@uirouter/angularjs/release/angular-ui-router.js')
 			.pipe(gulp.dest('build/public/javascripts/angular'));
-		// gulp.src('node_modules/bootstrap/dist/js/bootstrap.min.js')
-		// 	.pipe(gulp.dest('build/public/javascripts'));
+		gulp.src('node_modules/@uirouter/angularjs/release/angular-ui-router.js.map')
+			.pipe(gulp.dest('build/public/javascripts/angular'));
 
 		gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css')
 			.pipe(gulp.dest('build/public/stylesheets'));

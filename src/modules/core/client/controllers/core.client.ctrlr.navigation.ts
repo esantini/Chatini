@@ -5,18 +5,25 @@
 		.controller('navigationCtrl', navigationCtrl)
 		.directive('navigation', navigation);
 
-	navigationCtrl.$inject = ['$location','authentication', '$route'];
-	function navigationCtrl($location:any, authentication:any, $route: angular.route.IRouteService) {
+	navigationCtrl.$inject = ['$location','authentication', '$state', '$rootScope'];
+	function navigationCtrl(
+			$location: angular.ILocationService,
+			authentication:any, 
+			$state: angular.ui.IStateService,
+			$rootScope: angular.IRootScopeService) {
 		var vm = this;
 
 		vm.isLoggedIn = authentication.isLoggedIn();
 		vm.currentUser = authentication.currentUser();
+		
+		$rootScope.$on("log", function() {
+			vm.isLoggedIn = authentication.isLoggedIn();
+			vm.currentUser = authentication.currentUser();
+		});
 
 		vm.logout = function() {
 			authentication.logout();
-			vm.isLoggedIn = authentication.isLoggedIn();
-			vm.currentUser = authentication.currentUser();
-			$route.reload();
+			$state.reload();
 		}
 	}
 

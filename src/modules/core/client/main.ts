@@ -1,5 +1,5 @@
 
-var myApp = angular.module("myChatini", ['ngRoute']);
+var myApp = angular.module("myChatini", ['ui.router']);
 
 interface ChatType {
 	name: string,

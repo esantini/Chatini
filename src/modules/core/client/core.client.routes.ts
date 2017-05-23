@@ -1,37 +1,42 @@
-/// <reference types="angular" />
-/// <reference types="angular-route" />
-
 (function () {
 
 	angular.module('myChatini');
 
 	function config (
-				$routeProvider: angular.route.IRouteProvider,
+				$stateProvider: angular.ui.IStateProvider,
+				$urlRouterProvider: angular.ui.IUrlRouterProvider,
 				$locationProvider: angular.ILocationProvider ) {
 		
-		$routeProvider
-			.when('/', {
+		$stateProvider
+			.state('home', {
+				url: '/',
 				templateUrl: '/views/core.home.html',
 				controller: 'homeCtrl',
 				controllerAs: 'vm'
 			})
-			.when('/register', {
+			.state('register', {
+				url: '/register',
 				templateUrl: '/views/user.register.html',
 				controller: 'registerCtrl',
 				controllerAs: 'vm'
 			})
-			.when('/login', {
+			.state('login', {
+				url: '/login',
 				templateUrl: '/views/user.login.html',
 				controller: 'loginCtrl',
 				controllerAs: 'vm'
 			})
-			.when('/profile', {
+			.state('profile', {
+				url: '/profile',
 				templateUrl: '/views/user.profile.html',
 				controller: 'profileCtrl',
 				controllerAs: 'vm'
-			})
-			.otherwise({redirectTo: '/'});
+			});
 
+		$urlRouterProvider.otherwise('/');
+
+		
+		//TODO: still needed after changing from ngRoute to ui-router ?
 		// use the HTML5 History API
 		$locationProvider.html5Mode({
 			enabled: true,
@@ -40,22 +45,38 @@
 	}
 
 	function run(
-				$rootScope: angular.IRootScopeService, 
-				$location: angular.ILocationService, 
-				authentication: any) {
-		$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-			if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
-				$location.path('/login');
-			}
-			else if (($location.path() === '/login' || $location.path() === '/register') && authentication.isLoggedIn()) {
-				$location.path('/profile');
+				$rootScope: angular.IRootScopeService,
+				$location: angular.ILocationService,
+				authentication: any,
+				$transitions: any) {
+
+		// Only logged in users may see /profile
+		$transitions.onBefore({to: 'profile'}, function( transition: any ) {
+
+			if(!authentication.isLoggedIn()) {
+				// solution from: https://stackoverflow.com/a/40177897/3987900 
+					// note: solution says I should return true to stop transition, seems like it's wrong.
+				transition.router.stateService.transitionTo('login');
+				return false;
 			}
 		});
+
+		// If already logged in, redirect to 'profile'
+		$transitions.onBefore({to: 'login'}, if_user_is_already_logged_in);
+		// 'register' does the same thing as 'login', can they be grouped?
+		$transitions.onBefore({to: 'register'}, if_user_is_already_logged_in);
+		
+		function if_user_is_already_logged_in( transition: any ) {
+			if( authentication.isLoggedIn() ) {
+				transition.router.stateService.transitionTo('profile');
+				return false;
+			}
+		}
 	}
 	
 	angular
 		.module('myChatini')
-		.config(['$routeProvider', '$locationProvider', config])
-		.run(['$rootScope', '$location', 'authentication', run]);
+		.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', config])
+		.run(['$rootScope', '$location', 'authentication', '$transitions', run]);
 
 })();

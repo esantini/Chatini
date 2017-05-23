@@ -7,9 +7,9 @@ angular
 	.module('myChatini')
 	.service('authentication', authentication);
 
-authentication.$inject = ['$http', '$window'];
+authentication.$inject = ['$http', '$window', '$rootScope'];
 
-function authentication ($http: angular.IHttpService, $window: angular.IWindowService) {
+function authentication ($http: angular.IHttpService, $window: angular.IWindowService, $rootScope: angular.IRootScopeService) {
 
 	var saveToken = function (token: any) {
 		$window.localStorage['user-token'] = token;
@@ -56,11 +56,13 @@ function authentication ($http: angular.IHttpService, $window: angular.IWindowSe
 	var login = function(user: any) {
 		return $http.post('/api/login', user).then(function(data: any) {
 			saveToken(data.data.token);
+			$rootScope.$broadcast("log");
 		});
 	};
 
 	var logout = function() {
 		$window.localStorage.removeItem('user-token');
+		$rootScope.$broadcast("log");
 	};
 
 	return {
