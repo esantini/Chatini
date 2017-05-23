@@ -17,7 +17,6 @@
 		vm.currentUser = authentication.currentUser();
 		
 		$rootScope.$on("log", function() {
-			console.log('asdf');
 			vm.isLoggedIn = authentication.isLoggedIn();
 			vm.currentUser = authentication.currentUser();
 		});
