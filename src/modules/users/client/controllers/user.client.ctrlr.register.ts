@@ -24,7 +24,7 @@
 						$location.path('profile');
 					},
 					function(err: any){
-						alert(err);
+						console.error(err.data);
 					}
 				);
 			

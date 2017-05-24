@@ -17,6 +17,16 @@ export const register = function(req: express.Request, res: express.Response) {
 	user.setPassword(req.body.password);
 
 	user.save(function(err) {
+		if(err) {
+			if(err.code == 11000) {
+				res.json(406, 'Provided email (' + req.body.email + ') already exists.');
+				return;
+			}
+			else {
+				res.json(500, err.message);
+				return;
+			}
+		}
 		var token;
 		token = user.generateJwt();
 		res.status(200);
@@ -24,12 +34,6 @@ export const register = function(req: express.Request, res: express.Response) {
 			"token" : token
 		});
 	});
-	
-	// console.log("registering user: " + req.body.email);
-	// res.status(200);
-	// res.json({
-	// 	"message": "User registered: " + req.body.email
-	// });
 	
 }
 
