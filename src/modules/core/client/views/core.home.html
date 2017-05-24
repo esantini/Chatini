@@ -2,14 +2,34 @@
 
 	<h3>Chatini Home</h3>
 	
-	<div ng-if="!vm.isLoggedIn" class="panel panel-success">
+	<div ng-if="!vm.isLoggedIn" class="row">
 
-		<div class="panel-heading">
-			<h3 class="panel-title">Come in!</h3>
+		<div class="col-sm-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						New to Chatini? Register here:
+					</h3>
+				</div>
+				<div class="panel-body">
+					<register-form></register-form>
+				</div>
+			</div>
 		</div>
-		<div class="panel-body">
-			<p class="">New to Chatini? Please <a href="register">Register</a>.</p>
-			<p class="">Already a member? Please <a href="login">Log In</a>.</p>
+
+		<div class="col-sm-6">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						Already a member? Log in here.
+					</h3>
+				</div>
+				<div class="panel-body">
+					<login-form></login-form>
+				</div>
+
+			</div>
+			
 		</div>
 	</div>
 

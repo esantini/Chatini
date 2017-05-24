@@ -2,20 +2,21 @@
 
 	angular
 		.module('myChatini')
-		.controller('loginCtrl', loginCtrl);
+		.controller('loginCtrl', loginCtrl)
+		.directive('loginForm', loginForm);
 
 	loginCtrl.$inject = ['$location', 'authentication'];
 	function loginCtrl($location: angular.ILocationService, authentication:any) {
-		var vm = this;
+		var loginvm = this;
 
-		vm.credentials = {
+		loginvm.credentials = {
 			email : "",
 			password : ""
 		};
 
-		vm.onSubmit = function () {
+		loginvm.onSubmit = function () {
 			authentication
-				.login(vm.credentials)
+				.login(loginvm.credentials)
 				.then(
 					function(){
 						$location.path('profile');
@@ -26,6 +27,14 @@
 				);
 		};
 
+	}
+
+	function loginForm () {
+		return {
+			restrict: 'EA',
+			templateUrl: '/views/user.login-form.html',
+			controller: 'loginCtrl as loginvm'
+		};
 	}
 
 })();

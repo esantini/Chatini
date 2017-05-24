@@ -2,23 +2,24 @@
 
 	angular
 		.module('myChatini')
-		.controller('registerCtrl', registerCtrl);
+		.controller('registerCtrl', registerCtrl)
+		.directive('registerForm', registerForm);
 
 	registerCtrl.$inject = ['$location', 'authentication'];
 	function registerCtrl($location: any, authentication: any) {
-		var vm = this;
+		var registervm = this;
 
-		vm.credentials = {
+		registervm.credentials = {
 			name : "",
 			email : "",
 			password : ""
 		};
 
-		vm.onSubmit = function () {
+		registervm.onSubmit = function () {
 
 			console.log('Submitting registration');
 			authentication
-				.register(vm.credentials)
+				.register(registervm.credentials)
 				.then(
 					function(){
 						$location.path('profile');
@@ -29,7 +30,14 @@
 				);
 			
 		};
+	}
 
+	function registerForm () {
+		return {
+			restrict: 'EA',
+			templateUrl: '/views/user.register-form.html',
+			controller: 'registerCtrl as registervm'
+		};
 	}
 
 })();
