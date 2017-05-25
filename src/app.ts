@@ -64,60 +64,63 @@ app.use(function(err: myError, req:express.Request, res:express.Response, next: 
 	res.render('error');
 });
 
-var debug = require('debug')('socketsample:server');
-import * as http from 'http';
 
+
+
+// for sockets.io
+import * as httpLib from 'http';
+import * as socketio from 'socket.io';
 
 /**
  * Create HTTP server.
  */
-var server = http.createServer(app);
+var server = httpLib.createServer(app);
 
-// /**
-//  * Listen on provided port, on all network interfaces.
-//  */
-// var io = require('socket.io').listen(server);
-// io.sockets.on('connection', function(socket: any) {
-// 	socket.on('messageChange', function (data: any) {
-// 		console.log(data);
-// 		socket.emit('receive', data.message.split('').reverse().join('') );
-// 	});
-// });
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+var io = socketio(server);
+io.on('connection', function(socket: SocketIO.Socket) {
+	console.log('A user connected.!!!');
+
+	socket.on('chat message', function (message: any) {
+		
+		console.log("Message received: ", message);
+
+		//socket.emit('receive', message.message.split('').reverse().join('') );
+	});
+
+	socket.on('disconnect', function() {
+		console.log('User disconected');
+	});
+	
+});
 
 
 server.listen(port, function() {
 	console.log('Express server listening on port ' + port);
 });
 server.on('error', onError);
-//server.on('listening', onListening);
-
-
-
 
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val: any) {
 	var port = parseInt(val, 10);
-
 	if (isNaN(port)) {
 		// named pipe
 		return val;
 	}
-
 	if (port >= 0) {
 		// port number
 		return port;
 	}
-
 	return false;
 }
 
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error: any) {
 	if (error.syscall !== 'listen') {
 		throw error;
@@ -140,18 +143,6 @@ function onError(error: any) {
 		default:
 			throw error;
 	}
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-	var addr = server.address();
-	var bind = typeof addr === 'string'
-		? 'pipe ' + addr
-		: 'port ' + addr.port;
-	debug('Listening on ' + bind);
 }
 
 export = app;
