@@ -189,6 +189,11 @@ gulp.task('build', function() {
 		gulp.src('node_modules/@uirouter/angularjs/release/angular-ui-router.js.map')
 			.pipe(gulp.dest('build/public/javascripts/angular'));
 
+		gulp.src('node_modules/socket.io-client/dist/socket.io.js')
+			.pipe(gulp.dest('build/public/javascripts'));
+		gulp.src('node_modules/socket.io-client/dist/socket.io.js.map')
+			.pipe(gulp.dest('build/public/javascripts'));
+
 		gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css')
 			.pipe(gulp.dest('build/public/stylesheets'));
 		gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css.map')
