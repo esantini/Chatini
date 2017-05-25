@@ -1,6 +1,3 @@
-
-// import * as angular from 'angular';
-
 (function() {
 
 angular
@@ -50,6 +47,7 @@ function authentication ($http: angular.IHttpService, $window: angular.IWindowSe
 	var register = function(user: any) {
 		return $http.post('/api/register', user).then(function(data: any){
 			saveToken(data.data.token);
+			$rootScope.$broadcast("log");
 		});
 	};
 
