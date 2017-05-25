@@ -22,7 +22,7 @@
 				.register(registervm.credentials)
 				.then(
 					function(){
-						$location.path('profile');
+						$location.path('home');
 					},
 					function(err: any){
 						console.error(err.data);

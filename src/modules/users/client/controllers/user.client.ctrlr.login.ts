@@ -19,7 +19,7 @@
 				.login(loginvm.credentials)
 				.then(
 					function(){
-						$location.path('profile');
+						$location.path('home');
 					},
 					function(err:any){
 						console.error("My Login Controller Error: ", err);
