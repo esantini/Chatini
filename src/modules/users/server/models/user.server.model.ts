@@ -59,12 +59,6 @@ var UserSchema: Schema = new Schema({
 		required: true
 		// validate: [validateLocalStrategyEmail, "Please fill a valid email address"]
 	},
-	username: {
-		type: String,
-		unique: "Username already exists",
-		lowercase: true,
-		trim: true
-	},
 	password: {
 		type: String,
 		default: ''
