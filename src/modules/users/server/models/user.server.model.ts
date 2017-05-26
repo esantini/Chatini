@@ -33,6 +33,7 @@ export interface MyUser extends Document {
  * User Schema
  */
 var UserSchema: Schema = new Schema({
+	_id: Number,
 	name: {
 		type: String,
 		trim: true,
@@ -65,7 +66,8 @@ var UserSchema: Schema = new Schema({
 	},
 
 	hash: String,
-	salt: String
+	salt: String,
+	conversations: [{ type: Schema.Types.ObjectId, ref: "Conversation"}]
 });
 
 
