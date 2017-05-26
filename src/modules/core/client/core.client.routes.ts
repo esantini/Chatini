@@ -56,7 +56,7 @@
 			if(!authentication.isLoggedIn()) {
 				// solution from: https://stackoverflow.com/a/40177897/3987900 
 					// note: solution says I should return true to stop transition, seems like it's wrong.
-				transition.router.stateService.transitionTo('login');
+				transition.router.stateService.transitionTo('home');
 				return false;
 			}
 		});
@@ -68,7 +68,7 @@
 		
 		function if_user_is_logged_in( transition: any ) {
 			if( authentication.isLoggedIn() ) {
-				transition.router.stateService.transitionTo('profile');
+				transition.router.stateService.transitionTo('home');
 				return false;
 			}
 		}
