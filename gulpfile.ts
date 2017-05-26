@@ -180,14 +180,21 @@ var allTasks = (function(){
 
 gulp.task('build', function() {
 	if(process.env.DEV_ENV) {
-		gulp.src('node_modules/angular/angular.js')
+
+		gulp.src([	'node_modules/angular/angular.js',
+					'node_modules/@uirouter/angularjs/release/angular-ui-router.min.js',
+					'node_modules/@uirouter/angularjs/release/angular-ui-router.min.js.map',
+					'node_modules/angular-animate/angular-animate.min.js',
+					'node_modules/angular-animate/angular-animate.min.js.map',
+					'node_modules/angular-aria/angular-aria.min.js',
+					'node_modules/angular-aria/angular-aria.min.js.map',
+					'node_modules/angular-messages/angular-messages.min.js',
+					'node_modules/angular-messages/angular-messages.min.js.map',
+					'node_modules/angular-material/angular-material.js'])
 			.pipe(gulp.dest('build/public/javascripts/angular'));
 
-		//gulp.src('node_modules/angular-route/angular-route.js')
-		gulp.src('node_modules/@uirouter/angularjs/release/angular-ui-router.js')
-			.pipe(gulp.dest('build/public/javascripts/angular'));
-		gulp.src('node_modules/@uirouter/angularjs/release/angular-ui-router.js.map')
-			.pipe(gulp.dest('build/public/javascripts/angular'));
+		gulp.src([ 'node_modules/angular-material/angular-material.min.css'])
+			.pipe(gulp.dest('build/public/stylesheets'));
 
 		gulp.src('node_modules/socket.io-client/dist/socket.io.js')
 			.pipe(gulp.dest('build/public/javascripts'));
