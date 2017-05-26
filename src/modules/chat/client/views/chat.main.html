@@ -21,15 +21,18 @@
 			</ul>
 
 			<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-				<button type="button" class="btn btn-default btn-chati" ng-repeat="chati in chatScope.chatsList | categoryFilter: chatScope.chatCategory">
-					<span class="glyphicon glyphicon-{{ chati.category == 'group' && 'th-large' || 'user' }}" ></span>
-					{{ chati.name }}
+				
+				<button type="button" class="btn btn-default btn-conver" ng-click="chatScope.selectConver(conver)"
+						ng-repeat="conver in chatScope.conversations | categoryFilter: chatScope.chatCategory">
+					<span class="glyphicon glyphicon-{{ conver.category == 'group' && 'th-large' || 'user' }}" ></span>
+					{{ conver.name }}
 				</button>
 			</div>
 		</div>
+
 		<div id="chatboxDiv" class="col-md-9">
 			<div id="conversationDiv">
-				<div ng-repeat="message in chatScope.chatsList[0].messages">
+				<div ng-repeat="message in chatScope.selectedConver.messages">
 					<div class="panel message {{ message.from == 'me' && 'panel-success mine' || 'other' }}">
 						
 						<div class="panel-heading">

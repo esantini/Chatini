@@ -17,53 +17,71 @@
 		chatScope.sendMsg = function() {
 			console.log('sending message:', chatScope.textToSend);
 			socket.emit('chat message', { message: chatScope.textToSend } );
+			
+			chatScope.selectedConver.messages.push(
+				{ 
+					from: 'me',
+					message: chatScope.textToSend,
+					date: new Date()
+				}
+			);
 			chatScope.textToSend = '';
+			
 		}
 		
-		chatScope.chatsList = [ // TODO get from server.
-			{	name: 'chatGroup1',
-				category: 'group',
-				messages: [ 
-					{
-						from: 'userio1',
-						message: 'quiubo!',
-						date: new Date()
-					},
-					{
-						from: 'userio1',
-						message: 'quiubo!',
-						date: new Date()
-					}, {
-						from: 'me',
-						message: 'weep!',
-						date: new Date()
-					}, {
-						from: 'me',
-						message: 'weep!!',
-						date: new Date()
-					}
-				]
-			},
-			{	name: 'chatGroup2',
-				category: 'group',
-				messages: [] },
-			{
-				name: 'chatPerson1',
-				category: 'user',
-				messages: []
-			}
-		];
+		chatScope.conversations = 
+			[ // TODO get from server.
+				{	name: 'chatGroup1',
+					category: 'group',
+					messages: [ 
+						{
+							from: 'userio1',
+							message: 'quiubo!',
+							date: new Date()
+						},
+						{
+							from: 'userio1',
+							message: 'quiubo!',
+							date: new Date()
+						}, {
+							from: 'me',
+							message: 'weep!',
+							date: new Date()
+						}, {
+							from: 'me',
+							message: 'weep!!',
+							date: new Date()
+						}
+					]
+				},
+				{	name: 'chatGroup2',
+					category: 'group',
+					messages: [] },
+				{
+					name: 'chatPerson1',
+					category: 'user',
+					messages: []
+				}
+			];
+
+		chatScope.selectedConver = chatScope.conversations[0];
+		chatScope.selectConver = function(conversation: ChatType) {
+			chatScope.selectedConver = conversation;
+		}
+
 		chatScope.chatCategory = 'all';
 		chatScope.chatCategoryClick = function(type: string) {
 			if(type != 'all' && type != 'user' && type != 'group') {
-				return; // TODO return error.
+				console.error('Chat Categories can only be "all", "user" and "group"');
+				return;
 			}
 			chatScope.chatCategory = type;
 
-			angular.element(document.querySelector('.chatcategory.active')).removeClass('active');
-			angular.element(document.querySelector('.chatcategory.'+type)).addClass('active');
+			angular.element(document.querySelector('.chatcategory.active') as Element).removeClass('active');
+			angular.element(document.querySelector('.chatcategory.'+type) as Element).addClass('active');
 
 		};
+
 
 	}
 
@@ -107,10 +125,11 @@ interface Message {
 	date: Date
 }
 interface Drawing {}
-interface MyChatsScope {
-	chatsList: Array<ChatType>,
-	chatCategory: string,
-	chatCategoryClick: Function,
-	textToSend: string,
-	sendMsg: Function
-}
+
+// interface MyChatsScope {
+// 	conversations: Array<ChatType>,
+// 	chatCategory: string,
+// 	chatCategoryClick: Function,
+// 	textToSend: string,
+// 	sendMsg: Function
+// }
