@@ -4,10 +4,15 @@
 		.module('myChatini')
 		.controller('chatCtrl', chatCtrl)
 		.directive('chatini', chatiniDirective)
-		.filter('categoryFilter', categoryFilter);
+		.filter('categoryFilter', categoryFilter)
+		.directive('onFinishRender', finishedRender);
 
-	chatCtrl.$inject = [];
-	function chatCtrl() {
+	chatCtrl.$inject = ['$scope', '$mdSidenav', '$mdComponentRegistry', '$mdDialog'];
+	function chatCtrl(
+			$scope: any, 
+			$mdSidenav: angular.material.ISidenavService, 
+			$mdComponentRegistry: any,
+			$mdDialog: angular.material.IDialogService ) {
 		console.log('Chat Main Controller Initialized');
 
 		var chatScope = this;
@@ -15,25 +20,23 @@
 		var socket = io();
 		
 		chatScope.sendMsg = function() {
-			console.log('sending message:', chatScope.textToSend);
 			socket.emit('chat message', { message: chatScope.textToSend } );
 			
 			chatScope.selectedConver.messages.push(
-				{ 
+				{
 					from: 'me',
 					message: chatScope.textToSend,
 					date: new Date()
 				}
 			);
 			chatScope.textToSend = '';
-			
 		}
 		
 		chatScope.conversations = 
 			[ // TODO get from server.
 				{	name: 'chatGroup1',
 					category: 'group',
-					messages: [ 
+					messages: [
 						{
 							from: 'userio1',
 							message: 'quiubo!',
@@ -83,6 +86,69 @@
 		};
 
 
+
+		var chatContainer = document.getElementById("chatContainer") as HTMLElement;
+		
+		function updateScroll(){
+			// console.log('scrollTop', chatContainer.scrollTop);
+			// TODO: this unscrollable is unreliable as f.
+			if(chatContainer.scrollTop as any > 0) chatContainer.classList.remove('unscrollable');
+			else chatContainer.classList.add('unscrollable');
+
+			chatContainer.scrollTop = chatContainer.scrollHeight;
+			
+		};
+
+		chatScope.hideSidenav = function() {
+			// $mdComponentRegistry to avoid error when sidenav('sidenavLeft') doesn't exist.
+			$mdComponentRegistry.when('leftSidenav').then(function() { 
+				$mdSidenav('leftSidenav').close();
+			})
+		}
+
+		$scope.$on('ngRepeatUpdated', updateScroll);
+
+		
+		chatScope.createGroupDialog = showGroupDialog;
+		chatScope.addFriendDialog = function() {
+			console.log('Add Friend Dialog');
+		}
+		function showGroupDialog($event: any) {
+			
+			// var parentEl = angular.element(document.querySelector('.container') as Element);
+			
+			$mdDialog.show({
+				controller: GroupFormController,
+				templateUrl: '/views/chat.new_group.html',
+				parent: angular.element(document.body),
+				clickOutsideToClose: true,
+				targetEvent: $event
+			}).then(function(data) {
+				console.log('Group Form Accepted');
+			}, function() {
+				console.log('Group Cancelled');
+			});
+		}
+	}
+
+	function GroupFormController($scope: angular.IScope, $mdDialog: angular.material.IDialogService) {
+		/* TODO:
+			What's better?
+				ctrlr: $scope.items = [1,2,3];
+				view: <div ng-repeat="item in items">
+			or?
+				ctrlr:	var myScope = this;
+						myScope.items = [1,2,3];
+				view: <div ng-repeat="item in ctrlr.items"
+		 */
+		
+		$scope.hide = function() { $mdDialog.hide() };
+		$scope.cancel = function() {console.log('cancel'); $mdDialog.cancel() };
+		$scope.submit = function(data: any) {
+			console.log('Submit form with data:', data);
+			$mdDialog.hide();
+		}
+		$scope.items = [1, 2, 3];
 	}
 
 	function chatiniDirective() {
@@ -108,6 +174,20 @@
 			}
 			return filtered;
 			
+		}
+	}
+
+	// Directive whose attribute gets broadcasted when its ng-repeat finishes rendering.
+	function finishedRender($timeout: angular.ITimeoutService) {
+		return {
+			restrict: 'A',
+			link: function (scope: angular.IScope, element: Element, attr: any) {
+				if (scope.$last === true) {
+					$timeout(function () {
+						scope.$emit(attr.onFinishRender);
+					});
+				}
+			}
 		}
 	}
 
