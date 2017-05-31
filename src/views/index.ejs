@@ -32,18 +32,12 @@
 	<script src="javascripts/main.min.js" ></script>
 
 </head>
-<body>
-<div id="wrap">
-	
+<body layout="column">
+
 	<navigation></navigation>
 
-	<div ui-view></div>
+	<div ui-view flex layout="column"></div>
 	
-</div>
-<div id="footer">
-	FOOTER;
-</div>
-
 <% if( process.env.DEV_ENV ) { %>
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <% } %>
