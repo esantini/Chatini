@@ -5,12 +5,14 @@
 		.controller('navigationCtrl', navigationCtrl)
 		.directive('navigation', navigation);
 
-	navigationCtrl.$inject = ['$location','authentication', '$state', '$rootScope'];
+	navigationCtrl.$inject = ['$location','authentication', '$state', '$rootScope', '$mdSidenav', '$mdComponentRegistry'];
 	function navigationCtrl(
 			$location: angular.ILocationService,
 			authentication:any, 
 			$state: angular.ui.IStateService,
-			$rootScope: angular.IRootScopeService) {
+			$rootScope: angular.IRootScopeService,
+			$mdSidenav: angular.material.ISidenavService,
+			$mdComponentRegistry: any) {
 		var vm = this;
 
 		vm.isLoggedIn = authentication.isLoggedIn();
@@ -25,8 +27,14 @@
 			authentication.logout();
 			$state.reload();
 		}
-	}
 
+		vm.toggleSidenav = function() {
+			// $mdComponentRegistry to avoid error when sidenav('left') doesn't exist.
+			$mdComponentRegistry.when('leftSidenav').then(function() { 
+				$mdSidenav('leftSidenav').toggle();
+			})
+		}
+	}
 
 	function navigation () {
 		return {
