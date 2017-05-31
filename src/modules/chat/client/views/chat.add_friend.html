@@ -1,0 +1,13 @@
+<md-dialog aria-label="Add Friend Form">
+	<md-content>
+		<h3>Add a new friend</h3>
+		<md-list>
+			<md-item ng-repeat="item in items">
+				<p>{{item}}</p>
+			</md-item>
+		</md-list>
+	</md-content>
+	<md-button ng-click="hide()">
+		Add friend
+	</md-button>
+</md-dialog>

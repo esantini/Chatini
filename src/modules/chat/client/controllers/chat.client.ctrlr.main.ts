@@ -108,13 +108,21 @@
 
 		
 		chatScope.createGroupDialog = showGroupDialog;
-		chatScope.addFriendDialog = function() {
-			console.log('Add Friend Dialog');
+		chatScope.addFriendDialog = showFriendDialog;
+		function showFriendDialog($event: any) {
+			$mdDialog.show({
+				controller: "AddFriendController",
+				templateUrl: '/views/chat.add_friend.html',
+				parent: angular.element(document.body),
+				clickOutsideToClose: true,
+				targetEvent: $event
+			}).then(function(data) {
+				console.log('Friend Form Accepted');
+			}, function() {
+				console.log('Add Friend Cancelled');
+			});
 		}
 		function showGroupDialog($event: any) {
-			
-			// var parentEl = angular.element(document.querySelector('.container') as Element);
-			
 			$mdDialog.show({
 				controller: "GroupFormController",
 				templateUrl: '/views/chat.new_group.html',
