@@ -1,38 +1,45 @@
-<div id="contentDiv">
-	<div id="chatContainer" class="row">
-		<div id="contactsDiv" class="col-md-3">
-
+	<div layout="row" flex>
+		<md-sidenav md-component-id="leftSidenav" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-4dp" flex>
 			<ul class="nav nav-tabs">
-				<li role="chatcategories" class="active chatcategory all">
+				<li class="active chatcategory all">
 					<a href="#" ng-click="chatScope.chatCategoryClick('all')">
 						<span class="glyphicon glyphicon-asterisk"></span>
 					</a>
 				</li>
-				<li role="chatcategories" class="chatcategory user">
+				<li class="chatcategory user">
 					<a href="#" ng-click="chatScope.chatCategoryClick('user')">
 						<span class="glyphicon glyphicon-user"></span>
 					</a>
 				</li>
-				<li role="chatcategories" class="chatcategory group">
+				<li class="chatcategory group">
 					<a href="#" ng-click="chatScope.chatCategoryClick('group')">
 						<span class="glyphicon glyphicon-th-large"></span>
 					</a>
 				</li>
 			</ul>
+			<md-list ng-click="chatScope.hideSidenav()">
+				<md-list-item>
+					<md-button class="md-accent md-hue-3 md-raised" ng-click="chatScope.addFriendDialog()" ng-hide="chatScope.chatCategory == 'group'">
+						<span class="glyphicon glyphicon-plus"></span>
+						Add Friend
+					</md-button>
+					<md-button class="md-accent md-hue-3 md-raised" ng-click="chatScope.createGroupDialog()" ng-hide="chatScope.chatCategory == 'user'">
+						<span class="glyphicon glyphicon-plus"></span>
+						Create Group
+					</md-button>
+				</md-list-item>
+				<md-list-item ng-repeat="conver in chatScope.conversations | categoryFilter: chatScope.chatCategory">
+					<md-button ng-click="chatScope.selectConver(conver)" class="md-primary md-hue-3 md-cornered md-raised">
+						<span class="glyphicon glyphicon-{{ conver.category == 'group' && 'th-large' || 'user' }}"></span>
+						{{conver.name}}
+					</md-button>
+				</md-list-item>
+		</md-sidenav>
 
-			<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-				
-				<button type="button" class="btn btn-default btn-conver" ng-click="chatScope.selectConver(conver)"
-						ng-repeat="conver in chatScope.conversations | categoryFilter: chatScope.chatCategory">
-					<span class="glyphicon glyphicon-{{ conver.category == 'group' && 'th-large' || 'user' }}" ></span>
-					{{ conver.name }}
-				</button>
-			</div>
-		</div>
-
-		<div id="chatboxDiv" class="col-md-9">
-			<div id="conversationDiv">
-				<div ng-repeat="message in chatScope.selectedConver.messages">
+		<!-- class="unscrollable" is removed when chat is tall enough to scroll -->
+		<md-content id="chatContainer" layout="column" flex class="md-whiteframe-4dp unscrollable ">
+			<div id="conversationDiv" >
+				<div ng-repeat="message in chatScope.selectedConver.messages" on-finish-render="ngRepeatUpdated">
 					<div class="panel message {{ message.from == 'me' && 'panel-success mine' || 'other' }}">
 						
 						<div class="panel-heading">
@@ -41,11 +48,13 @@
 						
 					</div>
 				</div>
-				<div style="clear:both"></div>
 			</div>
-			<div id="messageControlsDiv">
+
+			<div id="messageControlsDiv" >
 				<div class="col-sm-10">
-					<textarea class="form-control" ng-model="chatScope.textToSend" ng-keyup="$event.keyCode == 13 && chatScope.sendMsg()" ></textarea>
+					<textarea class="form-control" ng-model="chatScope.textToSend"
+							ng-keyup="$event.keyCode == 13 && chatScope.sendMsg()" >
+					</textarea>
 				</div>
 				<div class="col-sm-2">
 					<a href="" class="btn btn-success" ng-click="chatScope.sendMsg()">
@@ -54,6 +63,7 @@
 					</a>
 				</div>
 			</div>
-		</div>
+
+		</md-content>
+
 	</div>
-</div>
