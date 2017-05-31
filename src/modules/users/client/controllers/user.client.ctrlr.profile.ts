@@ -7,8 +7,6 @@ angular
 profileCtrl.$inject = ['$location', 'userData'];
 function profileCtrl($location: angular.ILocationService, userData: any) {
 
-	console.log('Profile Controller loaded');
-
 	var vm = this;
 
 	vm.user = {};

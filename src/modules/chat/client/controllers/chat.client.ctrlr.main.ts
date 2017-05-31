@@ -13,7 +13,6 @@
 			$mdSidenav: angular.material.ISidenavService, 
 			$mdComponentRegistry: any,
 			$mdDialog: angular.material.IDialogService ) {
-		console.log('Chat Main Controller Initialized');
 
 		var chatScope = this;
 
@@ -90,7 +89,6 @@
 		var chatContainer = document.getElementById("chatContainer") as HTMLElement;
 		
 		function updateScroll(){
-			// console.log('scrollTop', chatContainer.scrollTop);
 			// TODO: this unscrollable is unreliable as f.
 			if(chatContainer.scrollTop as any > 0) chatContainer.classList.remove('unscrollable');
 			else chatContainer.classList.add('unscrollable');

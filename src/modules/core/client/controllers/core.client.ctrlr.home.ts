@@ -6,7 +6,6 @@
 
 	homeCtrl.$inject = ['authentication', '$rootScope'];
 	function homeCtrl(authentication: any, $rootScope: angular.IRootScopeService) {
-		console.log('Home Controller Initialized');
 
 		var homeScope = this;
 
