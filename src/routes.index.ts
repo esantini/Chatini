@@ -15,6 +15,7 @@ var router = express.Router();
 
 router.get('/profile', auth, ctrlrUser.profileRead);
 router.get('/userlist', auth, ctrlrUser.userList);
+router.get('/friendrequest', auth, ctrlrUser.friendRequest);
 
 // authentication
 router.post('/register', ctrlrAuth.register);
