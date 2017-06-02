@@ -5,15 +5,16 @@ import * as expJwt from 'express-jwt';
 
 var auth = expJwt({
 	secret: "MY_SECRET", // TODO get from env variable
-	userProperty: "payload"
+	userProperty: "thisUser"
 });
 
-import * as ctrlrProfile from './modules/users/server/controllers/user.server.ctrlr.profile';
+import * as ctrlrUser from './modules/users/server/controllers/user.server.ctrlr.main';
 import * as ctrlrAuth from './modules/users/server/controllers/user.server.ctrlr.auth';
 
 var router = express.Router();
 
-router.get('/profile', auth, ctrlrProfile.profileRead);
+router.get('/profile', auth, ctrlrUser.profileRead);
+router.get('/userlist', auth, ctrlrUser.userList);
 
 // authentication
 router.post('/register', ctrlrAuth.register);
