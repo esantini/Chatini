@@ -23,8 +23,8 @@ var wachAll: Array<TaskToWatch> = [];
 //
 
 watchTask = {
-	taskName: "myTypeScripts",
-	src: 'src/**/*.ts',
+	taskName: "serverTypeScripts",
+	src: ['src/**/*.ts', '!src/modules/**/client/**/*'],
 	dest: 'build/'
 };
 wachAll.push(watchTask);
@@ -32,20 +32,38 @@ wachAll.push(watchTask);
 
 	var tsProject = tsc.createProject('tsconfig.json');
 
-	var tsProject2 = tsc.createProject('tsconfig.json');
-	var clientScripts = 'src/modules/**/client/**/*.ts';
-
 	// Transpiles typescript files from the source to the build.
 	gulp.task(name, function() {
 		
-		gulp.src( [ src as string, '!'+clientScripts ] )
+		gulp.src( src )
 			
 			.pipe(sourcemaps.init())
 				.pipe(tsProject())
 			.pipe(sourcemaps.write('.', { sourceRoot: '../src/', includeContent: false }))
 			.pipe(gulp.dest( dest ));
 
-		gulp.src( [ './src/modules/core/client/main.ts', clientScripts ] )
+	});
+	
+})(watchTask.taskName, watchTask.src, watchTask.dest);
+
+//
+//
+
+watchTask = {
+	taskName: "clientTypeScripts",
+	src: 'src/modules/**/client/**/*.ts',
+	dest: 'build/'
+};
+wachAll.push(watchTask);
+(function(name: string, src: string | string[], dest: string): void {
+
+	var tsProject2 = tsc.createProject('tsconfig.json');
+
+	// Transpiles & concatenates client's typescript files into a single file in /public
+	gulp.task(name, function() {
+
+		// make sure main.ts goes first to register angular modules and other stuff that needs executing first.
+		gulp.src( [ './src/modules/core/client/main.ts', src as string ] )
 			
 			.pipe(sourcemaps.init())
 				.pipe(tsProject2())
