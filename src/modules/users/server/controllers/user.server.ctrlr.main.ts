@@ -24,20 +24,24 @@ export const profileRead = function(req: MyRequest, res: express.Response) {
 };
 
 export const userList = function(req: MyRequest, res: express.Response) {
-	
 	var query = req.query.query;
-	
 	User.find(
 		{ 
-			"name": { "$regex": query, '$options': 'i' },
-			"$nin": {
-				"_id": req.thisUser._id
+			name: { $regex: query, $options: 'i' },
+			_id: {
+				$nin: {
+					_id: [req.thisUser._id] // , contactsIds ]
+				}
 			}
 		},
 		function(err, docs: mongoose.Document[]) {
-			
 			res.status(200).json(docs);
-
 		}
 	);
+}
+
+export const friendRequest = function( req: MyRequest, res: express.Response) {
+
+	console.log('asdf');
+
 }

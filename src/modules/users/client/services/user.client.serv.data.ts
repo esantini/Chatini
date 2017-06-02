@@ -15,9 +15,34 @@ function userData ($http: angular.IHttpService, authentication: any) {
 		});
 	};
 
+	function getUsersList( query: string ) {
+		return $http.get('/api/userlist', {
+			headers: {
+				Authorization: 'Bearer '+ authentication.getToken()
+			},
+			params: {
+				query: query
+			}
+		});
+	}
+	
+	function friendRequest( _id: any ) {
+		return $http.get('/api/friendrequest', {
+			headers: {
+				Authorization: 'Bearer ' + authentication.getToken()
+			},
+			params: {
+				query: _id
+			}
+		})
+	}
+
 	return {
-		getProfile : getProfile
+		getUsersList: getUsersList,
+		getProfile : getProfile,
+		friendRequest: friendRequest
 	};
 }
+
 
 })();
