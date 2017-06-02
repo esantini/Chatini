@@ -26,7 +26,7 @@ export const profileRead = function(req: MyRequest, res: express.Response) {
 export const userList = function(req: MyRequest, res: express.Response) {
 	
 	var query = req.query.query;
-	console.log('thisuser', req.thisUser.name, req.thisUser._id);
+	
 	User.find(
 		{ 
 			"name": { "$regex": query, '$options': 'i' },
