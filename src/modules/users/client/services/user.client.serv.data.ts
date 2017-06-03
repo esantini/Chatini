@@ -27,7 +27,7 @@ function userData ($http: angular.IHttpService, authentication: any) {
 	}
 	
 	function friendRequest( _id: any ) {
-		return $http.get('/api/friendrequest', {
+		return $http.post('/api/friendrequest', {
 			headers: {
 				Authorization: 'Bearer ' + authentication.getToken()
 			},
