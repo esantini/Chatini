@@ -4,6 +4,7 @@ import { MyUser } from "../../../users/server/models/user.server.model";
 
 export interface Conversation extends Document {
 	category: string,
+	status: string,
 	members: string[], // The user IDs (email)
 	messages: Message[]
 }
@@ -24,11 +25,12 @@ var MessageSchema: Schema = new Schema({
 
 var ConversationSchema: Schema = new Schema({
 	category: {
-		type: String,
+		type: String, // 'friend', 'group'
 		trim: true,
 		default: 'user',
 		required: true
 	},
+	status: String, // 'live', 'requested'
 	created: Date,
 	creator: { type: Number, ref: 'User' },
 	members: [{ type: Number, ref: 'User' }],
