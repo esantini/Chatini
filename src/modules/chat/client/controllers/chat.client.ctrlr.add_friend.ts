@@ -25,20 +25,10 @@ function (
 	}
 	$scope.items = ['ei', 'bi', 'si'];
 
-	// list of `state` value/display objects
 	$scope.selectedItem  = null;
 	$scope.searchText    = null;
 	$scope.querySearch   = querySearch;
 
-
-	// ******************************
-	// Internal methods
-	// ******************************
-
-	/**
-	 * Search for states... use $timeout to simulate
-	 * remote dataservice call.
-	 */
 	var deferred: angular.IDeferred<any>;
 	var timeoutId: NodeJS.Timer;
 	function querySearch (query: string) {
@@ -55,18 +45,6 @@ function (
 		}, 500);
 		return deferred.promise;
 	}
-
-	/**
-	 * Create filter function for a query string
-	 */
-	// function createFilterFor(query: string) {
-	// 	var lowercaseQuery = angular.lowercase(query);
-
-	// 	return function filterFn(state: any) {
-	// 		return (state.value.indexOf(lowercaseQuery) === 0);
-	// 	};
-
-	// }
 });
 
 })();
