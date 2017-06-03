@@ -80,18 +80,24 @@ var server = httpLib.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 var io = socketio(server);
+var connections: SocketIO.Socket[] = [];
 io.on('connection', function(socket: SocketIO.Socket) {
-	console.log('A user connected.!!!');
+	if(connections.indexOf(socket) < 0) {
+		connections.push(socket);
+		console.log('Users connected to socket: ', connections.length);
+	}
 
 	socket.on('chat message', function (message: any) {
-		
-		console.log("Message received: ", message);
+		console.log("Message received:", message);
 
 		//socket.emit('receive', message.message.split('').reverse().join('') );
 	});
 
 	socket.on('disconnect', function() {
 		console.log('User disconected');
+
+		var i = connections.indexOf(socket);
+		connections.splice(i, 1);
 	});
 	
 });
