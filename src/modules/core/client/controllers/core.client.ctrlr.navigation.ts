@@ -34,6 +34,10 @@
 				$mdSidenav('leftSidenav').toggle();
 			})
 		}
+
+		vm.notifClick = function() {
+			console.log('view notifications');
+		}
 	}
 
 	function navigation () {
