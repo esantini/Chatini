@@ -34,6 +34,7 @@ export const userList = function(req: MyRequest, res: express.Response) {
 				}
 			}
 		},
+		'_id name',
 		function(err, docs: mongoose.Document[]) {
 			res.status(200).json(docs);
 		}
@@ -42,6 +43,8 @@ export const userList = function(req: MyRequest, res: express.Response) {
 
 export const friendRequest = function( req: MyRequest, res: express.Response) {
 
-	console.log('asdf');
+	
+
+	res.status(200);
 
 }
