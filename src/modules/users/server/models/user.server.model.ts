@@ -40,16 +40,6 @@ var UserSchema: Schema = new Schema({
 		required: true
 		// validate: [validateLocalStrategyProperty, 'Please fill in your first name']
 	},
-	lastName: {
-		type: String,
-		trim: true,
-		default: ''
-		// validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-	},
-	displayName: {
-		type: String,
-		trim: true
-	},
 	email: {
 		type: String,
 		unique: true,
