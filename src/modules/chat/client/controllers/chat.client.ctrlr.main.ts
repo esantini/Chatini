@@ -7,12 +7,13 @@
 		.filter('categoryFilter', categoryFilter)
 		.directive('onFinishRender', finishedRender);
 
-	chatCtrl.$inject = ['$scope', '$mdSidenav', '$mdComponentRegistry', '$mdDialog'];
+	chatCtrl.$inject = ['$scope', '$mdSidenav', '$mdComponentRegistry', '$mdDialog', 'converService'];
 	function chatCtrl(
 			$scope: any, 
 			$mdSidenav: angular.material.ISidenavService, 
 			$mdComponentRegistry: any,
-			$mdDialog: angular.material.IDialogService ) {
+			$mdDialog: angular.material.IDialogService,
+			converService: any ) {
 
 		var chatScope = this;
 
@@ -31,40 +32,11 @@
 			chatScope.textToSend = '';
 		}
 		
-		chatScope.conversations = 
-			[ // TODO get from server.
-				{	name: 'chatGroup1',
-					category: 'group',
-					messages: [
-						{
-							from: 'userio1',
-							message: 'quiubo!',
-							date: new Date()
-						},
-						{
-							from: 'userio1',
-							message: 'quiubo!',
-							date: new Date()
-						}, {
-							from: 'me',
-							message: 'weep!',
-							date: new Date()
-						}, {
-							from: 'me',
-							message: 'weep!!',
-							date: new Date()
-						}
-					]
-				},
-				{	name: 'chatGroup2',
-					category: 'group',
-					messages: [] },
-				{
-					name: 'chatPerson1',
-					category: 'user',
-					messages: []
-				}
-			];
+		chatScope.conversations = [];
+
+		converService.myConversations().then(function( data: any ) {
+			chatScope.conversations = data;
+		});
 
 		chatScope.selectedConver = chatScope.conversations[0];
 		chatScope.selectConver = function(conversation: ChatType) {
@@ -73,8 +45,8 @@
 
 		chatScope.chatCategory = 'all';
 		chatScope.chatCategoryClick = function(type: string) {
-			if(type != 'all' && type != 'user' && type != 'group') {
-				console.error('Chat Categories can only be "all", "user" and "group"');
+			if(type != 'all' && type != 'friend' && type != 'group') {
+				console.error('Chat Categories can only be "all", "friend" and "group"');
 				return;
 			}
 			chatScope.chatCategory = type;
