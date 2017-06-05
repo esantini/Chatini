@@ -27,7 +27,7 @@ function userData ($http: angular.IHttpService, authentication: any) {
 	}
 	
 	function friendRequest( _id: any ) {
-		return $http.post('/api/friendrequest', {
+		return $http.get('/api/friendrequest', { // TODO should be post but auth fails.
 			headers: {
 				Authorization: 'Bearer ' + authentication.getToken()
 			},
