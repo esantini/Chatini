@@ -38,6 +38,7 @@ function authentication ($http: angular.IHttpService, $window: angular.IWindowSe
 			payload = $window.atob(payload);
 			payload = JSON.parse(payload);
 			return {
+				_id : payload._id,
 				email : payload.email,
 				name : payload.name
 			};
