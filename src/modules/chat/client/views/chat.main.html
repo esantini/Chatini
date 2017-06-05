@@ -6,8 +6,8 @@
 						<span class="glyphicon glyphicon-asterisk"></span>
 					</a>
 				</li>
-				<li class="chatcategory user">
-					<a href="#" ng-click="chatScope.chatCategoryClick('user')">
+				<li class="chatcategory friend">
+					<a href="#" ng-click="chatScope.chatCategoryClick('friend')">
 						<span class="glyphicon glyphicon-user"></span>
 					</a>
 				</li>
@@ -23,7 +23,7 @@
 						<span class="glyphicon glyphicon-plus"></span>
 						Add Friend
 					</md-button>
-					<md-button class="md-accent md-hue-3 md-raised" ng-click="chatScope.createGroupDialog()" ng-hide="chatScope.chatCategory == 'user'">
+					<md-button class="md-accent md-hue-3 md-raised" ng-click="chatScope.createGroupDialog()" ng-hide="chatScope.chatCategory == 'friend'">
 						<span class="glyphicon glyphicon-plus"></span>
 						Create Group
 					</md-button>
