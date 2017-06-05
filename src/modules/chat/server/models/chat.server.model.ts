@@ -1,11 +1,15 @@
 
 import { Document, Schema, Model, model } from 'mongoose';
 import { MyUser } from "../../../users/server/models/user.server.model";
+// import { ObjectID } from "@types/mongodb";
 
 export interface Conversation extends Document {
+	name: string,
 	category: string,
 	status: string,
-	members: string[], // The user IDs (email)
+	created: Date,
+	creator: Schema.Types.ObjectId,
+	members: Schema.Types.ObjectId[], // The user IDs (email)
 	messages: Message[]
 }
 
@@ -18,26 +22,26 @@ export interface Message extends Document {
 interface Drawing {}
 
 var MessageSchema: Schema = new Schema({
-	from: { type: Number, ref: 'User' },
+	from: { type: Schema.Types.ObjectId, ref: 'User' },
 	message: String,
 	date: Date
 });
 
 var ConversationSchema: Schema = new Schema({
+	name: String,
 	category: {
 		type: String, // 'friend', 'group'
 		trim: true,
-		default: 'user',
+		default: 'friend',
 		required: true
 	},
 	status: String, // 'live', 'requested'
 	created: Date,
-	creator: { type: Number, ref: 'User' },
-	members: [{ type: Number, ref: 'User' }],
+	creator: { type: Schema.Types.ObjectId, ref: 'User' },
+	members: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 	messages: {
 		type: [MessageSchema],
-		default: [],
-		required: true
+		default: []
 	}
 });
 

@@ -46,3 +46,4 @@ process.on('SIGTERM', function() {
 
 // BRING IN YOUR SCHEMAS & MODELS
 import '../../users/server/models/user.server.model';
+import '../../chat/server/models/chat.server.model';
