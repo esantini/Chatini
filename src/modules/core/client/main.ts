@@ -2,7 +2,7 @@
  * This file is the 1st one to execute, 
  *   it is placed at the top of the concatenated bundle.
  */
-angular.module("myChatini", ['ui.router', 'ngMaterial'])
+angular.module("myChatini", ['ui.router', 'ngMaterial', 'ngMessages', 'ngAnimate'])
 	.config(['$mdThemingProvider',
 		function($mdThemingProvider: angular.material.IThemingProvider) {
 			$mdThemingProvider.theme('default')
