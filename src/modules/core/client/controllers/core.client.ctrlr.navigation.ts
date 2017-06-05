@@ -36,7 +36,7 @@
 		}
 
 		vm.notifClick = function() {
-			console.log('view notifications');
+			  console.log('notifClick: see notifications');
 		}
 	}
 
