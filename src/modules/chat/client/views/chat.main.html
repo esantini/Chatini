@@ -29,9 +29,11 @@
 					</md-button>
 				</md-list-item>
 				<md-list-item ng-repeat="conver in chatScope.conversations | categoryFilter: chatScope.chatCategory">
-					<md-button ng-click="chatScope.selectConver(conver)" class="md-primary md-hue-3 md-cornered md-raised">
+					<md-button ng-click="chatScope.selectConver(conver)" class="md-primary md-cornered md-raised"
+							ng-class="{'pending': conver.status == 'pending', 'md-hue-3': conver != chatScope.selectedConver}">
 						<span class="glyphicon glyphicon-{{ conver.category == 'group' && 'th-large' || 'user' }}"></span>
 						{{conver.name}}
+						<span ng-if="conver.status == 'pending'" class="pendingSpan" > pending </span>
 					</md-button>
 				</md-list-item>
 		</md-sidenav>
@@ -48,6 +50,29 @@
 						
 					</div>
 				</div>
+				
+				<pending-friendship
+					ng-if="chatScope.selectedConver.status == 'pending'"
+				 	conversation="chatScope.selectedConver">
+				</pending-friendship>
+				
+
+
+
+
+				<div class="panel panel-info chatini_panel " ng-if="!chatScope.selectedConver" >
+					<div class="panel-heading" >
+						<h3 class="panel-title">
+							Welcome to <strong>Chatini</strong>
+						</h3>
+					</div>
+					<div class="panel-body" >
+						<p>
+							Add a friend or select a conversation to get started.
+						</p>
+					</div>
+				</div>
+
 			</div>
 
 			<div id="messageControlsDiv" >

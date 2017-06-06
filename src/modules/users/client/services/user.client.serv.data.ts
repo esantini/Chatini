@@ -25,22 +25,10 @@ function userData ($http: angular.IHttpService, authentication: any) {
 			}
 		});
 	}
-	
-	function friendRequest( _id: any ) {
-		return $http.get('/api/friendrequest', { // TODO should be post but auth fails.
-			headers: {
-				Authorization: 'Bearer ' + authentication.getToken()
-			},
-			params: {
-				query: _id
-			}
-		})
-	}
 
 	return {
 		getUsersList: getUsersList,
-		getProfile : getProfile,
-		friendRequest: friendRequest
+		getProfile : getProfile
 	};
 }
 

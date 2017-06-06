@@ -35,7 +35,7 @@ var ConversationSchema: Schema = new Schema({
 		default: 'friend',
 		required: true
 	},
-	status: String, // 'live', 'requested'
+	status: String, // 'active', 'requested'
 	created: Date,
 	creator: { type: Schema.Types.ObjectId, ref: 'User' },
 	members: [{ type: Schema.Types.ObjectId, ref: 'User' }],

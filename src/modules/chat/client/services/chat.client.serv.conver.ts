@@ -4,8 +4,8 @@ angular.module('myChatini')
 	.service('converService', converService);
 
 
-converService.$inject = ['authentication', '$http'];
-function converService(authentication: any, $http: angular.IHttpService){
+converService.$inject = ['$http', 'authentication'];
+function converService($http: angular.IHttpService, authentication: any){
 	var myConversations = function () {
 		return $http.get('/api/myconversations', {
 			headers: {
@@ -28,8 +28,30 @@ function converService(authentication: any, $http: angular.IHttpService){
 		});
 	};
 	
+	function friendRequest( _id: any ) {
+		return $http.get('/api/friendrequest', { // TODO should be post but auth fails.
+			headers: {
+				Authorization: 'Bearer ' + authentication.getToken()
+			},
+			params: {
+				query: _id
+			}
+		});
+	};
+	
+	var acceptFriendship = function (newFriendId: string) {
+		return $http.get('/api/acceptfriendship', {
+			headers: {
+				Authorization: 'Bearer ' + authentication.getToken(),
+				friend: newFriendId
+			}
+		});
+	}
+
 	return {
-		myConversations: myConversations
+		myConversations: myConversations,
+		friendRequest: friendRequest,
+		acceptFriendship: acceptFriendship
 	}
 }
 

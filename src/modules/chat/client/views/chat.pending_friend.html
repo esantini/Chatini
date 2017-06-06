@@ -1,0 +1,15 @@
+
+<div class="panel panel-default chatini_panel ">
+	<div class="panel-heading" >
+		<h3 class="panel-title" ng-hide="isMyRequest" >
+			Accept friend request from <strong>{{ conversation.creator.name }}</strong>?
+		</h3>
+		<h3 class="panel-title" ng-show="isMyRequest" >
+			Waiting for user to respond.
+		</h3>
+	</div>
+	<div class="panel-body" ng-hide="isMyRequest" >
+		<md-button ng-click="submit()" class="md-primary md-cornered md-raised md-hue-2">Yes</md-button>
+		<md-button ng-click="decline()" class="md-primary md-cornered md-raised md-hue-2">No</md-button>
+	</div>
+</div>
