@@ -16,9 +16,10 @@ var router = express.Router();
 
 router.get('/profile', auth, ctrlrUser.profileRead);
 router.get('/userlist', auth, ctrlrUser.userList);
-router.get('/friendrequest', auth, ctrlrUser.friendRequest); // TODO should be post but auth fails.
 
 router.get('/myconversations', auth, ctrlrConver.myConversations);
+router.get('/acceptfriendship', auth, ctrlrConver.newFriendAccepts);
+router.get('/friendrequest', auth, ctrlrConver.friendRequest); // TODO should be post but auth fails.
 
 // authentication
 router.post('/register', ctrlrAuth.register);
