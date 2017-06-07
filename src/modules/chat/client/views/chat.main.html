@@ -75,17 +75,17 @@
 
 			</div>
 
-			<div id="messageControlsDiv" >
+			<div id="messageControlsDiv" ng-show="chatScope.selectedConver && chatScope.selectedConver.status == 'active'" >
 				<div class="col-sm-10">
 					<textarea class="form-control" ng-model="chatScope.textToSend"
 							ng-keyup="$event.keyCode == 13 && chatScope.sendMsg()" >
 					</textarea>
 				</div>
 				<div class="col-sm-2">
-					<a href="" class="btn btn-success" ng-click="chatScope.sendMsg()">
+					<md-button class="md-accent md-cornered md-raised" ng-click="chatScope.sendMsg()">
 						<span class="glyphicon glyphicon-send"></span>
 						Send
-					</a>
+					</md-button>
 				</div>
 			</div>
 
