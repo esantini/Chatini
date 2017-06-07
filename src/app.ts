@@ -70,6 +70,8 @@ app.use(function(err: myError, req:express.Request, res:express.Response, next: 
 // for sockets.io
 import * as httpLib from 'http';
 import * as socketio from 'socket.io';
+import { newMessage } from "./modules/chat/server/controllers/chat.server.ctrlr.conver";
+var socketioJwt = require('socketio-jwt');
 
 /**
  * Create HTTP server.
@@ -81,26 +83,40 @@ var server = httpLib.createServer(app);
  */
 var io = socketio(server);
 var connections: SocketIO.Socket[] = [];
-io.on('connection', function(socket: SocketIO.Socket) {
-	if(connections.indexOf(socket) < 0) {
-		connections.push(socket);
-		console.log('Users connected to socket: ', connections.length);
-	}
+interface MySecureSocket extends SocketIO.Socket {
+	decoded_token: { _id: string }
+}
 
-	socket.on('chat message', function (message: any) {
-		console.log("Message received:", message);
+io.on('connection', 
+		socketioJwt.authorize({
+			// If you are using a base64-encoded secret (e.g. your Auth0 secret key), you need to convert it to a Buffer: Buffer('your secret key', 'base64')
+			secret: "MY_SECRET", // TODO get from env variable
+			timeout: 15000 // 15 seconds to send the authentication message
+		})
+	)
+	.on('authenticated', function(socket: MySecureSocket) {
+		socket.emit('connected');
+		
+		var thisUserId = socket.decoded_token._id;
 
-		//socket.emit('receive', message.message.split('').reverse().join('') );
+		if(connections.indexOf(socket) < 0) {
+			connections.push(socket);
+			console.log('Users connected to socket: ', connections.length);
+		}
+
+		socket.on('chat message', 
+			function (message: any) {
+				newMessage(message, socket, thisUserId);
+			});
+
+		socket.on('disconnect', function() {
+			console.log('User disconected');
+
+			var i = connections.indexOf(socket);
+			connections.splice(i, 1);
+		});
+		
 	});
-
-	socket.on('disconnect', function() {
-		console.log('User disconected');
-
-		var i = connections.indexOf(socket);
-		connections.splice(i, 1);
-	});
-	
-});
 
 
 server.listen(port, function() {
