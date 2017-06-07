@@ -7,20 +7,50 @@
 		.filter('categoryFilter', categoryFilter)
 		.directive('onFinishRender', finishedRender);
 
-	chatCtrl.$inject = ['$scope', '$mdSidenav', '$mdComponentRegistry', '$mdDialog', 'converService'];
+	chatCtrl.$inject = [
+			'$scope', 
+			'$mdSidenav', 
+			'$mdComponentRegistry', 
+			'$mdDialog', 
+			'converService',
+			'authentication'
+		];
 	function chatCtrl(
 			$scope: any, 
 			$mdSidenav: angular.material.ISidenavService, 
 			$mdComponentRegistry: any,
 			$mdDialog: angular.material.IDialogService,
-			converService: any ) {
+			converService: any,
+			authentication: any ) {
 
 		var chatScope = this;
 
 		var socket = io();
 		
+		socket.on('connect', function() {
+			socket
+				.emit('authenticate', { token: authentication.getToken() }) //send the jwt
+				.on('authenticated', function () {
+					console.log('socket authenticated');
+					//do other things
+				})
+				.on('unauthorized', function(msg: any) {
+					console.log("unauthorized: " + JSON.stringify(msg.data));
+					throw new Error(msg.data.type);
+				})
+		});
+
+		socket.on('connected', function() {
+			console.log('socket connected');
+		});
+
 		chatScope.sendMsg = function() {
-			socket.emit('chat message', { message: chatScope.textToSend } );
+			socket.emit('chat message', 
+					{
+						message: chatScope.textToSend,
+						to: chatScope.selectedConver._id
+					}
+				);
 			
 			chatScope.selectedConver.messages.push(
 				{
@@ -31,6 +61,9 @@
 			);
 			chatScope.textToSend = '';
 		}
+		socket.on('receive', function(message: string) {
+			console.log("quiubo");
+		});
 		
 		chatScope.conversations = [];
 
