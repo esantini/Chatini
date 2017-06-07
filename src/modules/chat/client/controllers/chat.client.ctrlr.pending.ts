@@ -16,12 +16,14 @@ angular.module('myChatini')
 	pendingFriendCtrlr.$inject = ['$scope', 'converService', 'authentication'];
 	function pendingFriendCtrlr( $scope: angular.IScope, converService: any, authentication: any) {
 		
-		$scope.isMyRequest = $scope.conversation.creator._id == authentication.currentUser()._id;
+		$scope.myId = authentication.currentUser()._id;
 
 		$scope.submit = function() {
-			converService.acceptFriendship($scope.conversation.creator._id).then(function(){
-				$scope.conversation.status = 'active'
+			var currConver = $scope.conversation;
+			converService.acceptFriendship(currConver.creator._id).then(function(){
+				currConver.status = 'active'
 			});
+
 		}
 
 	}
