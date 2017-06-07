@@ -1,23 +1,45 @@
 import * as mongoose from 'mongoose';
 import * as express from 'express';
-import { Conversation } from "../../../chat/server/models/chat.server.model";
+import { Conversation, Message } from "../../../chat/server/models/chat.server.model";
 import { MyUser } from "../../../users/server/models/user.server.model";
-var Conver = mongoose.model('Conversation');
+var ConverModel = mongoose.model('Conversation');
+var MessageModel = mongoose.model('Message');
 
 interface MyRequest extends express.Request {
 	thisUser: MyUser
 }
 
+export const newMessage = 
+	function(rawMessage: any, socket: SocketIO.Socket, thisUserId: string) {
+
+		var theMessage: Message = new MessageModel();
+		theMessage.from = thisUserId;
+		theMessage.date = new Date();
+		theMessage.message = rawMessage.message;
+
+		ConverModel
+			.findById(rawMessage.to, 'messages')
+			.populate('messages')
+			.exec(function(err, doc: Conversation) {
+				doc.messages.push(theMessage);
+				doc.save().then(function() {
+					// TODO find other person's socket.
+					console.log('message saved.');
+				});
+			});
+	}
+
 export const myConversations = function(req: MyRequest, res: express.Response) {
-	Conver.find( { members: {$in: [ req.thisUser._id ] }},
-		'_id name category members messages status creator' )
-	.populate('members', '_id name' )
-	.populate('creator', '_id name' )
-	.exec(
-		function(err, docs: Conversation[]) {
-			res.status(200);
-			res.send(docs);
-		});
+	ConverModel.find( 
+			{ members: {$in: [ req.thisUser._id ] }},
+			'_id name category members messages status creator' )
+		.populate('members', '_id name' )
+		.populate('creator', '_id name' )
+		.exec(
+			function(err, docs: Conversation[]) {
+				res.status(200);
+				res.send(docs);
+			});
 }
 
 export const friendRequest = function( req: MyRequest, res: express.Response) {
@@ -40,10 +62,10 @@ export const friendRequest = function( req: MyRequest, res: express.Response) {
 			]
 	};
 
-	Conver.findOne(query, function(err: mongoose.Error, conver: Conversation) {
+	ConverModel.findOne(query, function(err: mongoose.Error, conver: Conversation) {
 		if(!err) {
 			if(!conver) {
-				conver = new Conver() as Conversation;
+				conver = new ConverModel() as Conversation;
 				conver.status = 'pending';
 				conver.creator = req.thisUser._id;
 				conver.members.push( req.thisUser._id, friendID as any );
@@ -84,7 +106,7 @@ export const newFriendAccepts = function(req: MyRequest, res: express.Response) 
 			]
 	};
 	
-	Conver.findOne( query )
+	ConverModel.findOne( query )
 	.exec(
 		function(err: mongoose.Error, docs: Conversation) {
 			if(err) {

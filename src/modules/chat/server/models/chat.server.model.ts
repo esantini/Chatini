@@ -14,9 +14,9 @@ export interface Conversation extends Document {
 }
 
 export interface Message extends Document {
-	from: string, // 
-	message: string | Drawing,
-	date: Date
+	from?: string, // 
+	message?: string | Drawing,
+	date?: Date
 }
 
 interface Drawing {}
