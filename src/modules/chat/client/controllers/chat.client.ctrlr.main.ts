@@ -16,7 +16,7 @@
 			'authentication'
 		];
 	function chatCtrl(
-			$scope: any, 
+			$scope: angular.IScope, 
 			$mdSidenav: angular.material.ISidenavService, 
 			$mdComponentRegistry: any,
 			$mdDialog: angular.material.IDialogService,
@@ -24,14 +24,13 @@
 			authentication: any ) {
 
 		var chatScope = this;
-
+		var myId = authentication.currentUser()._id;
 		var socket = io();
 		
 		socket.on('connect', function() {
 			socket
 				.emit('authenticate', { token: authentication.getToken() }) //send the jwt
 				.on('authenticated', function () {
-					console.log('socket authenticated');
 					//do other things
 				})
 				.on('unauthorized', function(msg: any) {
@@ -39,10 +38,7 @@
 					throw new Error(msg.data.type);
 				})
 		});
-
-		socket.on('connected', function() {
-			console.log('socket connected');
-		});
+		socket.on('connected', function() {}); // Happens after authentication.
 
 		chatScope.sendMsg = function() {
 			socket.emit('chat message', 
@@ -61,8 +57,25 @@
 			);
 			chatScope.textToSend = '';
 		}
-		socket.on('receive', function(message: string) {
-			console.log("quiubo");
+		socket.on('chat message', function(message: { message: string, from: string, date: Date, converId: string }) {
+			// received messages from "me" have already been added to the conversation.
+			if(message.from == myId) return;
+
+			console.log('hello notification!!!');
+
+			for (var i = 0; i < chatScope.conversations.length; i++) {
+				if(chatScope.conversations[i]._id == message.converId) {
+					chatScope.conversations[i].messages.push(
+						{
+							from: message.from,
+							message: message.message,
+							date: message.date
+						});
+					$scope.$digest();
+					return;
+				}
+			}
+			
 		});
 		
 		chatScope.conversations = [];
@@ -88,8 +101,6 @@
 			angular.element(document.querySelector('.chatcategory.'+type) as Element).addClass('active');
 
 		};
-
-
 
 		var chatContainer = document.getElementById("chatContainer") as HTMLElement;
 		
@@ -196,11 +207,3 @@ interface Message {
 	date: Date
 }
 interface Drawing {}
-
-// interface MyChatsScope {
-// 	conversations: Array<ChatType>,
-// 	chatCategory: string,
-// 	chatCategoryClick: Function,
-// 	textToSend: string,
-// 	sendMsg: Function
-// }
