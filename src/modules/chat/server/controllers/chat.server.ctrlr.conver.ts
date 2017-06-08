@@ -1,7 +1,8 @@
 import * as mongoose from 'mongoose';
 import * as express from 'express';
-import { Conversation, Message } from "../../../chat/server/models/chat.server.model";
+import { Conversation, Message } from "../models/chat.server.model";
 import { MyUser } from "../../../users/server/models/user.server.model";
+import * as MySockets from "../services/chat.server.sockets";
 var ConverModel = mongoose.model('Conversation');
 var MessageModel = mongoose.model('Message');
 
@@ -22,8 +23,15 @@ export const newMessage =
 			.populate('messages')
 			.exec(function(err, doc: Conversation) {
 				doc.messages.push(theMessage);
-				doc.save().then(function() {
-					// TODO find other person's socket.
+				doc.save().then(function() { //{ message: string, from: string, date: Date }
+
+					MySockets.socketMessage(
+						{ 
+							message: rawMessage.message,
+							from: thisUserId,
+							date: <Date>theMessage.date ,
+							converId: doc._id.toString()
+						} );
 					console.log('message saved.');
 				});
 			});
@@ -127,4 +135,15 @@ export const newFriendAccepts = function(req: MyRequest, res: express.Response) 
 				res.send('OK');
 			});
 		});
+}
+
+export const registerSocket = function(thisUserId: string, socket: SocketIO.Socket) {
+	
+	ConverModel.find({ 'members': thisUserId }, '_id', function(err: mongoose.Error, docs: Conversation[]) {
+		if(err) throw err;
+
+		for (var i = 0; i < docs.length; i++) {
+			MySockets.register(socket, docs[i]._id);
+		}
+	});
 }
