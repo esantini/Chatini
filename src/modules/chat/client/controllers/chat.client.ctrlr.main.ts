@@ -108,6 +108,8 @@
 		chatScope.selectedConver = chatScope.conversations[0];
 		chatScope.selectConver = function(conversation: ChatType) {
 			chatScope.selectedConver = conversation;
+			if(conversation.messages.length == 0)
+				chatContainer.classList.add('unscrollable');
 		}
 
 		chatScope.chatCategory = 'all';
@@ -124,14 +126,11 @@
 		};
 
 		var chatContainer = document.getElementById("chatContainer") as HTMLElement;
-		
 		function updateScroll(){
-			// TODO: this unscrollable is unreliable as f.
-			if(chatContainer.scrollTop as any > 0) chatContainer.classList.remove('unscrollable');
-			else chatContainer.classList.add('unscrollable');
-			
+			// TODO: this unscrollable is unreliable as f. (maybe not so much anymore)
 			chatContainer.scrollTop = chatContainer.scrollHeight;
-
+			if(chatContainer.scrollTop > 0) chatContainer.classList.remove('unscrollable');
+			else chatContainer.classList.add('unscrollable');
 		};
 
 		chatScope.hideSidenav = function() {
