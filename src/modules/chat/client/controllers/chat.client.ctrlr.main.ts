@@ -24,7 +24,7 @@
 			authentication: any ) {
 
 		var chatScope = this;
-		var myId = authentication.currentUser()._id;
+		chatScope.myId = authentication.currentUser()._id;
 		var socket = io();
 		
 		socket.on('connect', function() {
@@ -43,7 +43,7 @@
 		chatScope.sendMsg = function() {
 			socket.emit('chat message', 
 					{
-						from: myId,
+						from: chatScope.myId,
 						converId: chatScope.selectedConver._id,
 						message: chatScope.textToSend
 					}
@@ -51,7 +51,7 @@
 			
 			chatScope.selectedConver.messages.push(
 				{
-					from: 'me',
+					from: chatScope.myId,
 					message: chatScope.textToSend,
 					date: new Date()
 				}
@@ -60,7 +60,7 @@
 		}
 		socket.on('chat message', function(message: { message: string, from: string, date: Date, converId: string }) {
 			// received messages from "me" have already been added to the conversation.
-			if(message.from == myId) return;
+			if(message.from == chatScope.myId) return;
 
 			for (var i = 0; i < chatScope.conversations.length; i++) {
 				if(chatScope.conversations[i]._id == message.converId) {
@@ -80,6 +80,28 @@
 		chatScope.conversations = [];
 
 		converService.myConversations().then(function( data: any ) {
+			
+
+			for (var i = 0; i < data.length; i++) {
+				
+				/* Organize members like this:
+				conversation.membersObj = {
+					 "databaseid1": "Member Name1",
+					 "databaseid2": "Member Name2" 
+				}
+				So I can easily get the name from the ID when showing group messages in the view.
+				*/
+				let members: {
+					[key:string]: string
+				} = {}
+				for (var j = 0; j < data[i].members.length; j++) {
+					members[ data[i].members[j]._id ] = data[i].members[j].name
+				}
+
+				data[i].membersObj = members;
+				
+			}
+
 			chatScope.conversations = data;
 		});
 
@@ -107,9 +129,9 @@
 			// TODO: this unscrollable is unreliable as f.
 			if(chatContainer.scrollTop as any > 0) chatContainer.classList.remove('unscrollable');
 			else chatContainer.classList.add('unscrollable');
-
-			chatContainer.scrollTop = chatContainer.scrollHeight;
 			
+			chatContainer.scrollTop = chatContainer.scrollHeight;
+
 		};
 
 		chatScope.hideSidenav = function() {

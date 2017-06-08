@@ -42,9 +42,18 @@
 		<md-content id="chatContainer" layout="column" flex class="md-whiteframe-4dp unscrollable ">
 			<div id="conversationDiv" >
 				<div ng-repeat="message in chatScope.selectedConver.messages" on-finish-render="ngRepeatUpdated">
-					<div class="panel message {{ message.from == 'me' && 'panel-success mine' || 'other' }}">
-						
+					<div ng-if="message.from == chatScope.myId" class="panel message panel-success mine">
 						<div class="panel-heading">
+							{{message.message}}
+						</div>
+					</div>
+					
+					<div ng-if="message.from != chatScope.myId" 
+						class="panel panel-info message other">
+						<div ng-if="chatScope.selectedConver.category == 'group'" class="panel-heading">
+							{{ chatScope.selectedConver.membersObj[ message.from ] }}
+						</div>
+						<div class="panel-body">
 							{{message.message}}
 						</div>
 						
