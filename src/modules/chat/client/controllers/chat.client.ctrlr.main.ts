@@ -1,3 +1,6 @@
+/// <reference path="../../server/services/chat.server.sockets.ts" types="mySocketMessage" />
+
+
 (function() {
 
 	angular
@@ -43,8 +46,9 @@
 		chatScope.sendMsg = function() {
 			socket.emit('chat message', 
 					{
-						message: chatScope.textToSend,
-						to: chatScope.selectedConver._id
+						from: myId,
+						converId: chatScope.selectedConver._id,
+						message: chatScope.textToSend
 					}
 				);
 			
@@ -60,8 +64,6 @@
 		socket.on('chat message', function(message: { message: string, from: string, date: Date, converId: string }) {
 			// received messages from "me" have already been added to the conversation.
 			if(message.from == myId) return;
-
-			console.log('hello notification!!!');
 
 			for (var i = 0; i < chatScope.conversations.length; i++) {
 				if(chatScope.conversations[i]._id == message.converId) {
