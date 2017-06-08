@@ -11,27 +11,19 @@ interface MyRequest extends express.Request {
 }
 
 export const newMessage = 
-	function(rawMessage: any, socket: SocketIO.Socket, thisUserId: string) {
+	function(rawMessage: MySockets.mySocketMessage) {
 
 		var theMessage: Message = new MessageModel();
-		theMessage.from = thisUserId;
-		theMessage.date = new Date();
+		theMessage.from = rawMessage.from;
+		theMessage.date = rawMessage.date;
 		theMessage.message = rawMessage.message;
 
 		ConverModel
-			.findById(rawMessage.to, 'messages')
+			.findById(rawMessage.converId, 'messages')
 			.populate('messages')
 			.exec(function(err, doc: Conversation) {
 				doc.messages.push(theMessage);
-				doc.save().then(function() { //{ message: string, from: string, date: Date }
-
-					MySockets.socketMessage(
-						{ 
-							message: rawMessage.message,
-							from: thisUserId,
-							date: <Date>theMessage.date ,
-							converId: doc._id.toString()
-						} );
+				doc.save().then(function() {
 					console.log('message saved.');
 				});
 			});

@@ -1,15 +1,16 @@
 import * as socketio from 'socket.io';
 import * as conversationsCtrlr from "../controllers/chat.server.ctrlr.conver";
-import { Conversation, Message } from "../models/chat.server.model";
 import { Server } from "http";
 var socketioJwt = require('socketio-jwt');
 
 var io: SocketIO.Server;
 
-export const socketMessage =
-	function(message: { message: string, from: string, date: Date, converId: string }) {
-		io.in(message.converId).emit('chat message', message);
-	}
+export interface mySocketMessage {
+	message: string,
+	from: string,
+	date?: Date,
+	converId: string
+}
 
 export const register = 
 	function(socket: SocketIO.Socket, converId: string) {
@@ -20,8 +21,6 @@ export const disconnect =
 	function(socket: SocketIO.Socket, converId: string) {
 		socket.leave(converId);
 	}
-
-
 
 export const initialize = function(server: Server){
 	
@@ -54,8 +53,10 @@ export const initialize = function(server: Server){
 			conversationsCtrlr.registerSocket(thisUserId, socket);
 
 			socket.on('chat message', 
-				function (message: any) {
-					conversationsCtrlr.newMessage(message, socket, thisUserId);
+				function (message: mySocketMessage) {
+					message.date = new Date();
+					conversationsCtrlr.newMessage(message);
+					io.in(message.converId).emit('chat message', message);
 				});
 
 			socket.on('disconnect', function() {
