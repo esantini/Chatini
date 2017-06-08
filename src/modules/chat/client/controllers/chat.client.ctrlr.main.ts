@@ -1,6 +1,3 @@
-/// <reference path="../../server/services/chat.server.sockets.ts" types="mySocketMessage" />
-
-
 (function() {
 
 	angular
