@@ -18,8 +18,9 @@ router.get('/profile', auth, ctrlrUser.profileRead);
 router.get('/userlist', auth, ctrlrUser.userList);
 
 router.get('/myconversations', auth, ctrlrConver.myConversations);
-router.get('/acceptfriendship', auth, ctrlrConver.newFriendAccepts);
+router.get('/acceptfriendship', auth, ctrlrConver.newFriendAccepts); // TODO should be post but auth fails.
 router.get('/friendrequest', auth, ctrlrConver.friendRequest); // TODO should be post but auth fails.
+router.get('/creategroup', auth, ctrlrConver.createGroup); // TODO should be post but auth fails.
 
 // authentication
 router.post('/register', ctrlrAuth.register);

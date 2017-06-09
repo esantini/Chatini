@@ -36,10 +36,32 @@ export const myConversations = function(req: MyRequest, res: express.Response) {
 		.populate('members', '_id name' )
 		.populate('creator', '_id name' )
 		.exec(
-			function(err, docs: Conversation[]) {
+			function(err: mongoose.Error, docs: Conversation[]) {
 				res.status(200);
 				res.send(docs);
 			});
+}
+
+export const createGroup = function( req: MyRequest, res: express.Response) {
+
+	var conver = new ConverModel() as Conversation;
+	conver.name = req.params.groupName;
+	conver.category = 'group';
+	conver.status = 'active';
+	conver.creator = req.thisUser._id;
+	conver.members.push( req.thisUser._id );
+	conver.messages = [];
+
+	conver.save(function(err: mongoose.Error) {
+		if(!err) {
+			res.status(200);
+			res.send('OK');
+		}
+		else {
+			res.status(500);
+			res.send( err.message );
+		}
+	});
 }
 
 export const friendRequest = function( req: MyRequest, res: express.Response) {
@@ -73,7 +95,7 @@ export const friendRequest = function( req: MyRequest, res: express.Response) {
 			}
 			// TODO else { conversation already exists. }
 
-			conver.save(function(err) {
+			conver.save(function(err: mongoose.Error) {
 				if(!err) {
 					res.status(200);
 					res.send('OK');
