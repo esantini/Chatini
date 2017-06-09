@@ -45,7 +45,7 @@ export const myConversations = function(req: MyRequest, res: express.Response) {
 export const createGroup = function( req: MyRequest, res: express.Response) {
 
 	var conver = new ConverModel() as Conversation;
-	conver.name = req.params.groupName;
+	conver.name = req.query.groupName;
 	conver.category = 'group';
 	conver.status = 'active';
 	conver.creator = req.thisUser._id;
@@ -63,6 +63,24 @@ export const createGroup = function( req: MyRequest, res: express.Response) {
 		}
 	});
 }
+export const addGroupMember = function(req: MyRequest, res: express.Response){
+	console.log('quiubo');
+
+	ConverModel.findById(req.query.groupId, 'members', function(err: mongoose.Error, doc: Conversation) {
+		if(err) {
+			res.status(500);
+			res.send(err.message);
+		}
+		doc.members.push(req.query.memberId);
+		doc.save(function() {
+			res.status(200);
+			res.send('OK');
+		});
+
+		// TODO does it work???
+	});
+}
+
 
 export const friendRequest = function( req: MyRequest, res: express.Response) {
 
