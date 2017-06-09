@@ -36,6 +36,7 @@
 						<span ng-if="conver.status == 'pending'" class="pendingSpan" > pending </span>
 					</md-button>
 				</md-list-item>
+			</md-list>
 		</md-sidenav>
 
 		<!-- class="unscrollable" is removed when chat is tall enough to scroll -->
@@ -97,6 +98,13 @@
 					</md-button>
 				</div>
 			</div>
+
+
+			<md-button ng-if="chatScope.selectedConver && chatScope.selectedConver.category == 'group'"
+					id="addGroupMember" class="md-accent md-hue-3 md-raised md-cornered" ng-click="chatScope.addMemberDialog()">
+				<span class="glyphicon glyphicon-plus"></span>
+				Add member
+			</md-button>
 
 		</md-content>
 
