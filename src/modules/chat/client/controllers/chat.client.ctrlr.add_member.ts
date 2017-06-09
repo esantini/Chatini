@@ -1,16 +1,17 @@
 (function() {
 
 angular.module('myChatini')
-	.controller('AddFriendController', addFriendController);
+	.controller('AddMemberController', addMemberController);
 
-	addFriendController.$inject = ['$scope', '$mdDialog', '$timeout', '$q', 'userData', 'converService'];
-	function addFriendController (
+	addMemberController.$inject = ['$scope', '$mdDialog', '$timeout', '$q', 'userData', 'converService', 'groupId'];
+	function addMemberController (
 			$scope: angular.IScope,
 			$mdDialog: angular.material.IDialogService,
 			$timeout: angular.ITimeoutService,
 			$q: angular.IQService,
 			userData: any,
-			converService: any) {
+			converService: any,
+			groupId: string) {
 		/* TODO:
 			What's better?
 				ctrlr: $scope.items = [1,2,3];
@@ -21,13 +22,11 @@ angular.module('myChatini')
 				view: <div ng-repeat="item in ctrlr.items"
 		*/
 
-		$scope.dialogTitle = "Add Friends Member";
+		$scope.dialogTitle = "Add Group Member";
 
-		$scope.submit = function(data: any) {
-			if(data) {
-				converService.friendRequest(data);
-				$mdDialog.hide();
-			}
+		$scope.submit = function() {
+			converService.addGroupMember(groupId, $scope.selectedItem._id);
+			$mdDialog.hide();
 		}
 
 		$scope.selectedItem  = null;

@@ -59,11 +59,24 @@ function converService($http: angular.IHttpService, authentication: any){
 		})
 	}
 
+	var addGroupMember = function(groupId: string, memberId: string) {
+		return $http.get('/api/addgroupmember', {
+			headers: {
+				Authorization: 'Bearer ' + authentication.getToken()
+			},
+			params: {
+				groupId: groupId,
+				memberId: memberId
+			}
+		})
+	}
+
 	return {
 		myConversations: myConversations,
 		friendRequest: friendRequest,
 		acceptFriendship: acceptFriendship,
-		createGroup: createGroup
+		createGroup: createGroup,
+		addGroupMember: addGroupMember
 	}
 }
 

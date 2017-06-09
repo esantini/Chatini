@@ -143,9 +143,7 @@
 		$scope.$on('ngRepeatUpdated', updateScroll);
 
 		
-		chatScope.createGroupDialog = showGroupDialog;
-		chatScope.addFriendDialog = showFriendDialog;
-		function showFriendDialog($event: any) {
+		chatScope.addFriendDialog = function($event: any) {
 			$mdDialog.show({
 				controller: "AddFriendController",
 				templateUrl: '/views/chat.add_friend.html',
@@ -158,7 +156,7 @@
 				console.log('Add Friend Cancelled');
 			});
 		}
-		function showGroupDialog($event: any) {
+		chatScope.createGroupDialog = function($event: any) {
 			$mdDialog.show({
 				controller: "GroupFormController",
 				templateUrl: '/views/chat.new_group.html',
@@ -169,6 +167,20 @@
 				console.log('Group Form Accepted');
 			}, function() {
 				console.log('Group Cancelled');
+			});
+		}
+		chatScope.addMemberDialog = function ($event: any) {
+			$mdDialog.show({
+				locals: { groupId: chatScope.selectedConver._id },
+				controller: "AddMemberController",
+				templateUrl: '/views/chat.add_friend.html',
+				parent: angular.element(document.body),
+				clickOutsideToClose: true,
+				targetEvent: $event
+			}).then(function(data) {
+				console.log('Member Form Accepted');
+			}, function() {
+				console.log('Add Member Cancelled');
 			});
 		}
 	}
