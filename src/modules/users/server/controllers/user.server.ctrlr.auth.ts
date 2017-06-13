@@ -19,11 +19,13 @@ export const register = function(req: express.Request, res: express.Response) {
 	user.save(function(err) {
 		if(err) {
 			if(err.code == 11000) {
-				res.json(406, 'Provided email (' + req.body.email + ') already exists.');
+				res.status(406);
+				res.send('Provided email (' + req.body.email + ') already exists.');
 				return;
 			}
 			else {
-				res.json(500, err.message);
+				res.status(500);
+				res.send(err.message);
 				return;
 			}
 		}
