@@ -90,7 +90,7 @@ UserSchema.methods.generateJwt = function() {
 		name: this.name,
 		exp: expiry,
 
-	}, "MY_SECRET"); //TODO set secret in environment variable.
+	} as any, "MY_SECRET"); //TODO set secret in environment variable.
 }
 
 export const User: Model<MyUser> = model<MyUser>("User", UserSchema);
