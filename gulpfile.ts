@@ -208,6 +208,8 @@ gulp.task('build', function() {
 					'node_modules/angular-aria/angular-aria.min.js.map',
 					'node_modules/angular-messages/angular-messages.min.js',
 					'node_modules/angular-messages/angular-messages.min.js.map',
+					'node_modules/angular-cookies/angular-cookies.min.js',
+					'node_modules/angular-cookies/angular-cookies.min.js.map',
 					'node_modules/angular-material/angular-material.js'])
 			.pipe(gulp.dest('build/public/javascripts/angular'));
 
@@ -233,4 +235,5 @@ gulp.task('build', function() {
 });
 allTasks.push('build', 'wacha');
 
-gulp.task('default', allTasks );
+// @types are inconsistent:
+gulp.task('default', allTasks as any ); // should be: gulp.parallel( allTasks );
