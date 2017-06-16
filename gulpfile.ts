@@ -210,6 +210,9 @@ gulp.task('build', function() {
 					'node_modules/angular-messages/angular-messages.min.js.map',
 					'node_modules/angular-cookies/angular-cookies.min.js',
 					'node_modules/angular-cookies/angular-cookies.min.js.map',
+					'node_modules/angular-sanitize/angular-sanitize.min.js',
+					'node_modules/angular-sanitize/angular-sanitize.min.js.map',
+
 					'node_modules/angular-material/angular-material.js'])
 			.pipe(gulp.dest('build/public/javascripts/angular'));
 
@@ -226,6 +229,11 @@ gulp.task('build', function() {
 		gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css.map')
 			.pipe(gulp.dest('build/public/stylesheets'));
 	}
+
+	gulp.src(['node_modules/angular-translate/dist/angular-translate.min.js',
+			'node_modules/angular-translate/dist/angular-translate-loader-static-files/'+
+				'angular-translate-loader-static-files.min.js'])
+		.pipe(gulp.dest('build/public/javascripts/angular'));
 
 	gulp.src('node_modules/bootstrap/dist/fonts/*')
 		.pipe(gulp.dest('build/public/fonts'));
