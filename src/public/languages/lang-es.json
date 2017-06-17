@@ -1,0 +1,61 @@
+{
+"home": "Inicio",
+"logout": "Desloggeate",
+"signin": "Iniciar Sesión",
+"opensidemenu": "Abrir menú lateral",
+"rusure": "¿Está seguro?",
+"loginview": {
+	"notamember": "No tienes cuenta?",
+	"registerhere": "Registrate aqui"
+},
+"registerview": {
+	"alreadyamember": "Ya eres miembro?",
+	"loginhere": "Loggeate aqui"
+},
+"register": "Registrate",
+"addfriend": "Agregar Amigo",
+"chat": {
+	"creategroup": "Crear Grupo",
+	"pending": "pendiente",
+	"welcometo": "Bienvenido a",
+	"welcomeintro": "Agrega a un amigo o selecciona una conversacion para empezar.",
+	"send": "Enviar",
+	"addmember": "Agregar miembro"
+},
+"adduserdialog": {
+	"addgroupmember": "Agregar Amigo al Grupo",
+	"friendrequired": "No has seleccionado a nadie.",
+	"friendrequiredmatch": "Selecciona a un usuario.",
+	"shortentry": "Entrada muy corta.",
+	"longentry": "Entrada muy larga.",
+	"searchfriend": "Busca un Amigo"
+},
+"newgroup": {
+	"title": "Crea un Grupo nuevo",
+	"groupname": "Nombre del Grupo",
+	"submit": "Crear Grupo"
+},
+"pending": {
+	"acceptfrom": "Aceptar solicitud de amista de",
+	"waitingresponse": "Esperando respuesta.",
+	"yes": "Si",
+	"no": "No"
+},
+"profile": {
+	"yourprofile": "Su perfil",
+	"language": "Lenguaje preferido",
+	"selectlang": "Selecciona Lenguaje",
+	"changelang": "Cambiar Lenguaje"
+},
+"user": {
+	"fullname": "Nombre completo",
+	"email": "Correo Electrónico",
+	"password": "Contraseña",
+	"inputemail": "Ingresa tu E-Mail",
+	"inputname": "Ingresa tu nombre"
+},
+"homepage": {
+	"newtochatini": "Nuevo en Chatini? Registrate aqui:",
+	"alreadymember": "Ya eres miembro? Loggeate aqui:"
+}
+}

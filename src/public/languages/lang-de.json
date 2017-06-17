@@ -1,0 +1,61 @@
+{
+"home": "Beginn",
+"logout": "Ausloggen",
+"signin": "Anmelden",
+"opensidemenu": "Offenes Menu",
+"rusure": "Bist du sicher?",
+"loginview": {
+	"notamember": "Bist du nicht Mitglied?",
+	"registerhere": "Hier registrieren"
+},
+"registerview": {
+	"alreadyamember": "Schon ein Mitglied?",
+	"loginhere": "Hier anmelden"
+},
+"register": "Registrieren",
+"addfriend": "Neu Freund",
+"chat": {
+	"creategroup": "Neu Gruppe",
+	"pending": "anstehend",
+	"welcometo": "Willkommen zu",
+	"welcomeintro": "Füge einen Freund oder Wählen Sie eine Konversation, um loszulegen.",
+	"send": "Senden",
+	"addmember": "Mitglied hinzufügen"
+},
+"adduserdialog": {
+	"addgroupmember": "Gruppenmitglied hinzufügen",
+	"friendrequired": "Du hast niemanden ausgewählt.",
+	"friendrequiredmatch": "Bitte wählen Sie einen vorhandenen Benutzer aus.",
+	"shortentry": "Ihr Eintrag ist nicht lang genug.",
+	"longentry": "Ihr Eintrag ist zu lang.",
+	"searchfriend": "Suche nach einem Freund"
+},
+"newgroup": {
+	"title": "Erstellen Sie eine neue Gruppe",
+	"groupname": "Gruppenname",
+	"submit": "Gruppe erstellen"
+},
+"pending": {
+	"acceptfrom": "Akzeptiere Freundschaftsantrag von",
+	"waitingresponse": "Eine Antwort steht noch aus",
+	"yes": "Ja",
+	"no": "Nein"
+},
+"profile": {
+	"yourprofile": "Dein Profil",
+	"language": "Bevorzugte Sprache",
+	"selectlang": "Wähle eine Sprache",
+	"changelang": "Sprache ändern"
+},
+"user": {
+	"fullname": "Vollständiger Name",
+	"email": "Email",
+	"password": "Passwort",
+	"inputemail": "Geben Sie Ihre E-Mail ein",
+	"inputname": "Geben Sie Ihre Name ein"
+},
+"homepage": {
+	"newtochatini": "Neu in Chatini? Hier registrieren:",
+	"alreadymember": "Schon ein Mitglied? Hier anmelden:"
+}
+}

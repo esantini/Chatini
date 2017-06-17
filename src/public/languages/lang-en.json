@@ -1,0 +1,61 @@
+{
+"home": "Home",
+"logout": "Log Out",
+"signin": "Sign in",
+"opensidemenu": "Open side menu",
+"rusure": "Are you sure?",
+"loginview": {
+	"notamember": "Not a member?",
+	"registerhere": "Register here"
+},
+"registerview": {
+	"alreadyamember": "Already a member?",
+	"loginhere": "Log in here"
+},
+"register": "Register",
+"addfriend": "Agregar Amigo",
+"chat": {
+	"creategroup": "Create Group",
+	"pending": "pending",
+	"welcometo": "Welcome to",
+	"welcomeintro": "Add a friend or select a conversation to get started.",
+	"send": "Send",
+	"addmember": "Add member"
+},
+"adduserdialog": {
+	"addgroupmember": "Add Group Member",
+	"friendrequired": "You haven't selected anyone.",
+	"friendrequiredmatch": "Please select an existing user.",
+	"shortentry": "Your entry is not long enough.",
+	"longentry": "Your entry is too long.",
+	"searchfriend": "Search for a friend"
+},
+"newgroup": {
+	"title": "Create a new group",
+	"groupname": "Group Name",
+	"submit": "Create Group"
+},
+"pending": {
+	"acceptfrom": "Accept friend request from",
+	"waitingresponse": "Waiting for user to respond.",
+	"yes": "Yes",
+	"no": "No"
+},
+"profile": {
+	"yourprofile": "Your profile",
+	"language": "Preferred Language",
+	"selectlang": "Select Language",
+	"changelang": "Change Language"
+},
+"user": {
+	"fullname": "Full name",
+	"email": "Email",
+	"password": "Password",
+	"inputemail": "Enter your Email",
+	"inputname": "Enter your name"
+},
+"homepage": {
+	"newtochatini": "New to Chatini? Register here:",
+	"alreadymember": "Already a member? Log in here:"
+}
+}
