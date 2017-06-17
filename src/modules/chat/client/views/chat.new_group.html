@@ -1,10 +1,10 @@
-<md-dialog aria-label="Create Group Form">
+<md-dialog aria-label="Create Group Form" translate-namespace="newgroup">
 	<ng-form action="/creategroup" method="post" name="createGroupForm" >
 		<md-content>
-			<h3>Create a new group</h3>
+			<h3 translate>.title</h3>
 			<md-input-container class="md-block">
 			
-				<label for="groupName">Group Name</label>
+				<label for="groupName" translate>.groupname</label>
 				<input ng-model="groupName" aria-invalid="false" required
 					class="ng-pristine ng-valid md-input ng-empty ng-touched" >
 				
@@ -13,6 +13,6 @@
 		</md-content>
 	</ng-form>
 	<md-button ng-click="submit()" class="md-accent md-cornered md-raised" ng-disabled="groupName.length < 2">
-		Create Group
+		<span translate>.submit</span>
 	</md-button>
 </md-dialog>

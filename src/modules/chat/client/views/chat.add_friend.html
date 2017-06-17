@@ -1,6 +1,6 @@
-<md-dialog aria-label="Add Friend Form">
+<md-dialog aria-label="Add Friend Form" translate-namespace="adduserdialog">
 	<md-content>
-		<h3>{{ dialogTitle }}</h3>
+		<h3 translate>{{ dialogTitle }}</h3>
 
 		<form ng-submit="$event.preventDefault()" name="addFriendForm">
 
@@ -13,21 +13,21 @@
 					md-search-text="searchText"
 					md-items="item in querySearch(searchText)"
 					md-item-text="item.name"
-					md-floating-label="Search for a friend">
+					md-floating-label="{{ 'adduserdialog.searchfriend' | translate }}">
 				<md-item-template>
 					<span md-highlight-text="searchText">{{item.name}}</span>
 				</md-item-template>
 				<div ng-messages="addFriendForm.autocompleteField.$error" ng-if="addFriendForm.autocompleteField.$touched">
-					<div ng-message="required">You haven't selected anyone.</div>
-					<div ng-message="md-require-match">Please select an existing user.</div>
-					<div ng-message="minlength">Your entry is not long enough.</div>
-					<div ng-message="maxlength">Your entry is too long.</div>
+					<div ng-message="required" translate >.friendrequired</div>
+					<div ng-message="md-require-match" translate>.friendrequiredmatch</div>
+					<div ng-message="minlength" translate>.shortentry</div>
+					<div ng-message="maxlength" translate>.longentry</div>
 				</div>
 			</md-autocomplete>
 		</form>
 	</md-content>
 
 	<md-button ng-click="submit(selectedItem)" class="md-accent md-cornered md-raised">
-		Add friend
+		<span translate>addfriend</span>
 	</md-button>
 </md-dialog>

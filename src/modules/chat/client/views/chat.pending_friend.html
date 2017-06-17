@@ -1,21 +1,21 @@
 
-<div class="panel panel-default chatini_panel ">
+<div class="panel panel-default chatini_panel " translate-namespace="pending">
 	<div class="panel-heading" >
 		<h3 class="panel-title" ng-if="conversation.creator._id != myId" >
-			Accept friend request from <strong>{{ conversation.creator.name }}</strong>?
+			<span translate>.acceptfrom</span> <strong>{{ conversation.creator.name }}</strong>?
 		</h3>
-		<h3 class="panel-title" ng-if="conversation.creator._id == myId" >
-			Waiting for user to respond.
+		<h3 class="panel-title" ng-if="conversation.creator._id == myId" translate>
+			.waitingresponse
 		</h3>
 	</div>
 	<div class="panel-body" ng-if="conversation.creator._id != myId" >
 		<md-button ng-click="submit()" class="md-accent md-cornered md-raised">
 			<span class="glyphicon glyphicon-ok"></span>
-			Yes
+			<span translate>.yes</span>
 		</md-button>
 		<md-button ng-click="decline()" class="md-accent md-cornered md-raised">
 			<span class="glyphicon glyphicon-remove"></span>
-			No
+			<span translate>.no</span>
 		</md-button>
 	</div>
 </div>

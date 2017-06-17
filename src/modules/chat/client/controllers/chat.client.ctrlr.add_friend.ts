@@ -21,7 +21,7 @@ angular.module('myChatini')
 				view: <div ng-repeat="item in ctrlr.items"
 		*/
 
-		$scope.dialogTitle = "Add Friends Member";
+		$scope.dialogTitle = "addfriend";
 
 		$scope.submit = function(data: any) {
 			if(data) {

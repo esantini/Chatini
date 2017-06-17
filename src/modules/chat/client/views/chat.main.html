@@ -1,4 +1,4 @@
-	<div layout="row" flex>
+	<div layout="row" flex translate-namespace="chat">
 		<md-sidenav md-component-id="leftSidenav" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-4dp" flex>
 			<ul class="nav nav-tabs">
 				<li class="active chatcategory all">
@@ -21,11 +21,11 @@
 				<md-list-item>
 					<md-button class="md-accent md-hue-3 md-raised" ng-click="chatScope.addFriendDialog()" ng-hide="chatScope.chatCategory == 'group'">
 						<span class="glyphicon glyphicon-plus"></span>
-						Add Friend
+						<span translate>addfriend</span>
 					</md-button>
 					<md-button class="md-accent md-hue-3 md-raised" ng-click="chatScope.createGroupDialog()" ng-hide="chatScope.chatCategory == 'friend'">
 						<span class="glyphicon glyphicon-plus"></span>
-						Create Group
+						<span translate>.creategroup</span>
 					</md-button>
 				</md-list-item>
 				<md-list-item ng-repeat="conver in chatScope.conversations | categoryFilter: chatScope.chatCategory">
@@ -33,7 +33,7 @@
 							ng-class="{'pending': conver.status == 'pending', 'md-hue-3': conver != chatScope.selectedConver}">
 						<span class="glyphicon glyphicon-{{ conver.category == 'group' && 'th-large' || 'user' }}"></span>
 						{{conver.name}}
-						<span ng-if="conver.status == 'pending'" class="pendingSpan" > pending </span>
+						<span ng-if="conver.status == 'pending'" class="pendingSpan" translate>.pending</span>
 					</md-button>
 				</md-list-item>
 			</md-list>
@@ -73,13 +73,11 @@
 				<div class="panel panel-info chatini_panel " ng-if="!chatScope.selectedConver" >
 					<div class="panel-heading" >
 						<h3 class="panel-title">
-							Welcome to <strong>Chatini</strong>
+							<span translate>.welcometo</span> <strong>Chatini</strong>
 						</h3>
 					</div>
 					<div class="panel-body" >
-						<p>
-							Add a friend or select a conversation to get started.
-						</p>
+						<p translate>.welcomeintro</p>
 					</div>
 				</div>
 
@@ -94,7 +92,7 @@
 				<div class="col-sm-2">
 					<md-button class="md-accent md-cornered md-raised" ng-click="chatScope.sendMsg()">
 						<span class="glyphicon glyphicon-send"></span>
-						Send
+						<span translate>.send</span>
 					</md-button>
 				</div>
 			</div>
@@ -103,7 +101,7 @@
 			<md-button ng-if="chatScope.selectedConver && chatScope.selectedConver.category == 'group'"
 					id="addGroupMember" class="md-accent md-hue-3 md-raised md-cornered" ng-click="chatScope.addMemberDialog()">
 				<span class="glyphicon glyphicon-plus"></span>
-				Add member
+				<span translate>.addmember</span>
 			</md-button>
 
 		</md-content>

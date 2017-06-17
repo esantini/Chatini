@@ -3,16 +3,31 @@
 
 		<div class="col-md-6">
 
-			<h1 class="form-signin-heading">Your profile</h1>
+			<h1 class="form-signin-heading">{{ 'profile.yourprofile' | translate }}</h1>
 
 			<form  class="form-horizontal">
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Full name</label>
+					<label class="col-sm-3 control-label"> {{ 'user.fullname' | translate }} </label>
 					<p class="form-control-static">{{ vm.user.name }}</p>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Email</label>
+					<label class="col-sm-3 control-label">{{ 'user.email' | translate }}</label>
 					<p class="form-control-static">{{ vm.user.email }}</p>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">{{ 'profile.language' | translate }}</label>
+					<md-input-container style="margin-top: 0px;">
+						<md-select ng-model="vm.user.language" aria-label="{{ 'selectlang' | translate }}">
+							<md-option ng-repeat="lang in vm.languages" value="{{lang.id}}">{{lang.val}}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div class="form-group" ng-show="vm.currLanguage != vm.user.language">
+					<label class="col-sm-3 control-label" style="margin-top: 10px" >{{ 'rusure' | translate }}</label>
+					<md-button ng-click="vm.changeLang()" class="md-accent md-hue-3 md-raised md-button">
+						{{ 'profile.changelang' | translate }}
+					</md-button>
 				</div>
 			</form>
 

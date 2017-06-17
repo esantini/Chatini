@@ -1,15 +1,17 @@
 <form ng-submit="registervm.onSubmit()">
 	<div class="form-group">
-		<label for="name">Full name</label>
-		<input type="text" class="form-control" id="name" placeholder="Enter your name" ng-model="registervm.credentials.name">
+		<label for="name">{{ 'user.fullname' | translate }}</label>
+		<input type="text" class="form-control" id="name" placeholder="{{'user.inputname' | translate }}" ng-model="registervm.credentials.name">
 	</div>
 	<div class="form-group">
-		<label for="email">Email address</label>
-		<input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="registervm.credentials.email">
+		<label for="email">{{ 'user.email' | translate }}</label>
+		<input type="email" class="form-control" id="email" placeholder="{{ 'user.inputemail' | translate }}" ng-model="registervm.credentials.email">
 	</div>
 	<div class="form-group">
-		<label for="password">Password</label>
-		<input type="password" class="form-control" id="password" placeholder="Password" ng-model="registervm.credentials.password">
+		<label for="password">{{ 'user.password' | translate }}</label>
+		<input type="password" class="form-control" id="password"
+			placeholder="{{ 'user.password' | translate }}"
+			ng-model="registervm.credentials.password">
 	</div>
-	<button type="submit" class="btn btn-default">Register!</button>
+	<button type="submit" class="btn btn-default">{{'register' | translate }}!</button>
 </form>

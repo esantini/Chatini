@@ -22,7 +22,7 @@ angular.module('myChatini')
 				view: <div ng-repeat="item in ctrlr.items"
 		*/
 
-		$scope.dialogTitle = "Add Group Member";
+		$scope.dialogTitle = "adduserdialog.addgroupmember";
 
 		$scope.submit = function() {
 			converService.addGroupMember(groupId, $scope.selectedItem._id);
