@@ -26,9 +26,21 @@ function userData ($http: angular.IHttpService, authentication: any) {
 		});
 	}
 
+	function changeLang( newLanguage: string ) {
+		return $http.get('/api/changelang', {
+			headers: {
+				Authorization: 'Bearer '+ authentication.getToken()
+			},
+			params: {
+				query: newLanguage
+			}
+		});
+	}
+
 	return {
 		getUsersList: getUsersList,
-		getProfile : getProfile
+		getProfile : getProfile,
+		changeLang: changeLang
 	};
 }
 
