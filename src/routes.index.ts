@@ -16,6 +16,7 @@ var router = express.Router();
 
 router.get('/profile', auth, ctrlrUser.profileRead);
 router.get('/userlist', auth, ctrlrUser.userList);
+router.get('/changelang', auth, ctrlrUser.changeLang);
 
 router.get('/myconversations', auth, ctrlrConver.myConversations);
 router.get('/acceptfriendship', auth, ctrlrConver.newFriendAccepts); // TODO should be post but auth fails.
