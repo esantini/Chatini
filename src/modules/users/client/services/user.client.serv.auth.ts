@@ -40,7 +40,8 @@ function authentication ($http: angular.IHttpService, $window: angular.IWindowSe
 			return {
 				_id : payload._id,
 				email : payload.email,
-				name : payload.name
+				name : payload.name,
+				language: payload.language
 			};
 		}
 	};
