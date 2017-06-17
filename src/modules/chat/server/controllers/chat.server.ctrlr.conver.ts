@@ -3,12 +3,9 @@ import * as express from 'express';
 import { Conversation, Message } from "../models/chat.server.model";
 import { MyUser } from "../../../users/server/models/user.server.model";
 import * as MySockets from "../services/chat.server.sockets";
+import { MyRequest } from "../../../users/server/controllers/user.server.ctrlr.main";
 var ConverModel = mongoose.model('Conversation');
 var MessageModel = mongoose.model('Message');
-
-interface MyRequest extends express.Request {
-	thisUser: MyUser
-}
 
 export const newMessage = 
 	function(rawMessage: MySockets.mySocketMessage) {
