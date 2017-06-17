@@ -4,16 +4,19 @@ import * as express from 'express';
 import * as passport from 'passport';
 import * as mongoose from 'mongoose';
 import { MyUser } from "../models/user.server.model";
+import { getLanguage } from "../../../core/server/server.languages";
+import { MyRequest } from "./user.server.ctrlr.main";
 
 var User = mongoose.model('User');
 
-export const register = function(req: express.Request, res: express.Response) {
+export const register = function(req: MyRequest, res: express.Response) {
 	
 	var user = (new User() as MyUser);
 	
 	user.name = req.body.name;
 	user.email = req.body.email;
-	
+	user.language = getLanguage(req);
+
 	user.setPassword(req.body.password);
 
 	user.save(function(err) {
