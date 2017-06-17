@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="myChatini">
-<head>
+<head <%- 'lang="'+language+'"' %>>
 	<title><%= title %></title>
 
 	<% if( process.env.DEV_ENV ) { %>
@@ -8,23 +8,32 @@
 		<script type="text/javascript" src="javascripts/angular/angular-animate.min.js" ></script>
 		<script type="text/javascript" src="javascripts/angular/angular-aria.min.js" ></script>
 		<script type="text/javascript" src="javascripts/angular/angular-messages.min.js" ></script>
+		<script type="text/javascript" src="javascripts/angular/angular-cookies.min.js" ></script>
+		<script type="text/javascript" src="javascripts/angular/angular-sanitize.min.js" ></script>
+		
 		<script type="text/javascript" src="javascripts/angular/angular-material.js" ></script>
 		<script type="text/javascript" src="javascripts/angular/angular-ui-router.min.js" ></script>
-		
+
 		<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
 		<link rel='stylesheet' href='/stylesheets/angular-material.min.css' />
 	<% } else { %>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
 		<script type="text/javascript"
 			src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
 		
 		<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' />
-		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css" />
 	<% } %>
+	
+	<script type="text/javascript" src="javascripts/angular/angular-translate.min.js" ></script>
+	<script type="text/javascript" src="javascripts/angular/angular-translate-loader-static-files.min.js" ></script>
 	
 	<link rel='stylesheet' href='/stylesheets/style.css' />
 
