@@ -22,6 +22,7 @@ var validateLocalStrategyEmail = function (email: string) {
 export interface MyUser extends Document {
 	email: string;
 	name: string;
+	language: string;
 
 	authenticate(password: string): boolean;
 	setPassword(password: string): void;
@@ -52,6 +53,11 @@ var UserSchema: Schema = new Schema({
 	password: {
 		type: String,
 		default: ''
+	},
+
+	language: {
+		type: String,
+		default: 'en'
 	},
 
 	hash: String,
@@ -88,6 +94,7 @@ UserSchema.methods.generateJwt = function() {
 		_id: this._id,
 		email: this.email,
 		name: this.name,
+		language: this.language,
 		exp: expiry,
 
 	} as any, "MY_SECRET"); //TODO set secret in environment variable.
