@@ -37,8 +37,12 @@ app.use(passport.initialize());
 import routesApi = require('./routes.index');
 app.use('/api', routesApi);
 
-app.use('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-	res.render('index', { title: 'Chatini' });
+
+import { MyRequest } from "./modules/users/server/controllers/user.server.ctrlr.main";
+import * as languages from "./modules/core/server/server.languages";
+app.use('/', function(req: MyRequest, res: express.Response, next: express.NextFunction) {
+	var lang = languages.getLanguage(req);
+	res.render('index', { title: 'Chatini', language: lang });
 });
 
 
