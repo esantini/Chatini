@@ -4,6 +4,7 @@
 "signin": "Anmelden",
 "opensidemenu": "Offenes Menu",
 "rusure": "Bist du sicher?",
+"badcredentials": "Falscher Benutzername und / oder Passwort.",
 "loginview": {
 	"notamember": "Bist du nicht Mitglied?",
 	"registerhere": "Hier registrieren"

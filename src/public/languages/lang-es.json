@@ -4,6 +4,7 @@
 "signin": "Iniciar Sesión",
 "opensidemenu": "Abrir menú lateral",
 "rusure": "¿Está seguro?",
+"badcredentials": "Usuario y/o Contraseña incorrecta.",
 "loginview": {
 	"notamember": "No tienes cuenta?",
 	"registerhere": "Registrate aqui"

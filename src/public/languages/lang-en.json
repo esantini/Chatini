@@ -4,6 +4,7 @@
 "signin": "Sign in",
 "opensidemenu": "Open side menu",
 "rusure": "Are you sure?",
+"badcredentials": "Incorrect username and/or password.",
 "loginview": {
 	"notamember": "Not a member?",
 	"registerhere": "Register here"

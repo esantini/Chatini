@@ -7,5 +7,10 @@
 		<label for="password">{{ 'user.password' | translate }}</label>
 		<input type="password" class="form-control" id="password" placeholder="{{ 'user.password' | translate }}" ng-model="loginvm.credentials.password">
 	</div>
+	<div ng-show="loginvm.authfail">
+		<p style="color: red" id="authfailMessage" >
+			{{ loginvm.errMessage | translate }}
+		</p>
+	</div>
 	<button type="submit" class="btn btn-default">{{ 'signin' | translate }}</button>
 </form>

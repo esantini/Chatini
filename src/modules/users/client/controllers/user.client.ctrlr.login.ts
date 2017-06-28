@@ -22,11 +22,17 @@
 						$location.path('home');
 					},
 					function(err:any){
-						console.error("My Login Controller Error: ", err);
+						loginvm.authfail = true;
+						if(err.statusText === "Unauthorized") {
+							loginvm.errMessage = 'badcredentials';
+						} else {
+							loginvm.errMessage = err.statusText;
+						}
 					}
 				);
 		};
 
+		loginvm.authfail = false;
 	}
 
 	function loginForm () {
