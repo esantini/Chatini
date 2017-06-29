@@ -163,8 +163,8 @@ wachAll.push(watchTask);
 
 watchTask = {
 	taskName: "tests",
-	src: 'tests/**/*.ts',
-	dest: 'tests'
+	src: 'tests/src/**/*.ts',
+	dest: 'tests/dest'
 };
 wachAll.push(watchTask);
 (function(name: string, src: string | string[], dest: string) {
@@ -172,17 +172,33 @@ wachAll.push(watchTask);
 	gulp.task(name, function() {
 		var tsProject = tsc.createProject('tsconfig.json');
 		gulp.src(src)
+			.pipe(sourcemaps.init())
 			.pipe(tsProject())
+			.pipe(sourcemaps.write())
 			.pipe(gulp.dest(dest));
 	});
 
 })(watchTask.taskName, watchTask.src, watchTask.dest);
+
+
+/**
+ * Watch for file changes and re-run tests on each change
+ */
+var Karma = require('karma');
+gulp.task('Run_Karma_Tests', function (done) {
+  new Karma.Server({
+    configFile: __dirname + '/tests/karma.conf.js'
+  }, done).start();
+});
+
 // 
 // 
+
 gulp.task('wacha', function() {
 	wachAll.forEach(wacha => {
 		console.log('Watching', wacha.taskName);
-		gulp.watch(wacha.src, [wacha.taskName]);
+		gulp.watch(wacha.src, [wacha.taskName] as gulp.WatchOptions); // casting as WatchOptions because of error TS2345:
+		// error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'WatchOptions | undefined'
 	});
 });
 
@@ -241,7 +257,7 @@ gulp.task('build', function() {
 	// gulp.src('node_modules/jquery/dist/jquery.min.js')
 	// 	.pipe(gulp.dest('build/public/javascripts'));
 });
-allTasks.push('build', 'wacha');
+allTasks.push('build', 'wacha'); //, 'Run_Karma_Tests'
 
 // @types are inconsistent:
 gulp.task('default', allTasks as any ); // should be: gulp.parallel( allTasks );
