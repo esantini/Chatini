@@ -47,7 +47,7 @@
 	function run(
 				$rootScope: angular.IRootScopeService,
 				$location: angular.ILocationService,
-				authentication: any,
+				authentication: myTypes.AuthService,
 				$transitions: any) {
 
 		// Only logged in users may see /profile

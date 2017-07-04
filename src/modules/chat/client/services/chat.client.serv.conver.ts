@@ -5,7 +5,10 @@ angular.module('myChatini')
 
 
 converService.$inject = ['$http', 'authentication'];
-function converService($http: angular.IHttpService, authentication: any){
+function converService(
+		$http: angular.IHttpService,
+		authentication: myTypes.AuthService
+	): myTypes.ConversationService {
 	var myConversations = function () {
 		return $http.get('/api/myconversations', {
 			headers: {
@@ -19,7 +22,7 @@ function converService($http: angular.IHttpService, authentication: any){
 			for (var i = 0; i < data.length; i++) {
 				memberIndex = 0;
 				if(data[i].category == 'friend') {
-					if(data[i].members[0]._id == authentication.currentUser()._id)
+					if(data[i].members[0]._id == authentication.currentUser()!._id)
 						memberIndex++;
 					data[i].name = data[i].members[memberIndex].name;
 				}

@@ -6,9 +6,13 @@ angular
 
 authentication.$inject = ['$http', '$window', '$rootScope'];
 
-function authentication ($http: angular.IHttpService, $window: angular.IWindowService, $rootScope: angular.IRootScopeService) {
+function authentication (
+		$http: angular.IHttpService,
+		$window: angular.IWindowService,
+		$rootScope: angular.IRootScopeService
+		): myTypes.AuthService {
 
-	var saveToken = function (token: any) {
+	var saveToken = function (token: string) {
 		$window.localStorage['user-token'] = token;
 	};
 
@@ -16,7 +20,7 @@ function authentication ($http: angular.IHttpService, $window: angular.IWindowSe
 		return $window.localStorage['user-token'];
 	};
 
-	var isLoggedIn = function() {
+	var isLoggedIn = function(): boolean {
 		var token = getToken();
 		var payload;
 
@@ -43,24 +47,24 @@ function authentication ($http: angular.IHttpService, $window: angular.IWindowSe
 				name : payload.name,
 				language: payload.language
 			};
-		}
+		} else return undefined;
 	};
 
-	var register = function(user: any) {
+	var register = function(user: { email: string, name: string, password: string }): angular.IPromise<void> {
 		return $http.post('/api/register', user).then(function(data: any){
 			saveToken(data.data.token);
 			$rootScope.$broadcast("log");
 		});
 	};
 
-	var login = function(user: any) {
+	var login = function(user: any): angular.IPromise<void> {
 		return $http.post('/api/login', user).then(function(data: any) {
 			saveToken(data.data.token);
 			$rootScope.$broadcast("log");
 		});
 	};
 
-	var logout = function() {
+	var logout = function(): void {
 		$window.localStorage.removeItem('user-token');
 		$rootScope.$broadcast("log");
 	};

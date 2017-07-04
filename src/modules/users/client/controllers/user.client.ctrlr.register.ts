@@ -6,8 +6,16 @@
 		.directive('registerForm', registerForm);
 
 	registerCtrl.$inject = ['$location', 'authentication'];
-	function registerCtrl($location: any, authentication: any) {
-		var registervm = this;
+	function registerCtrl($location: angular.ILocationService, authentication: myTypes.AuthService) {
+		var registervm: 
+		{
+			credentials:{
+				name: string,
+				email: string,
+				password: string
+			},
+			onSubmit(): void
+		} = this;
 
 		registervm.credentials = {
 			name : "",

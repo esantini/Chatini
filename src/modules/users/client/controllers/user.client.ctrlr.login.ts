@@ -6,7 +6,7 @@
 		.directive('loginForm', loginForm);
 
 	loginCtrl.$inject = ['$location', 'authentication'];
-	function loginCtrl($location: angular.ILocationService, authentication:any) {
+	function loginCtrl($location: angular.ILocationService, authentication: myTypes.AuthService) {
 		var loginvm = this;
 
 		loginvm.credentials = {

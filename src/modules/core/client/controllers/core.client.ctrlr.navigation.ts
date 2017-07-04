@@ -8,7 +8,7 @@
 	navigationCtrl.$inject = ['$location','authentication', '$state', '$rootScope', '$mdSidenav', '$mdComponentRegistry'];
 	function navigationCtrl(
 			$location: angular.ILocationService,
-			authentication:any, 
+			authentication: myTypes.AuthService, 
 			$state: angular.ui.IStateService,
 			$rootScope: angular.IRootScopeService,
 			$mdSidenav: angular.material.ISidenavService,

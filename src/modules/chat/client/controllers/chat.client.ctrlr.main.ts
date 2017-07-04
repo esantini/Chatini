@@ -20,11 +20,11 @@
 			$mdSidenav: angular.material.ISidenavService, 
 			$mdComponentRegistry: any,
 			$mdDialog: angular.material.IDialogService,
-			converService: any,
-			authentication: any ) {
+			converService: myTypes.ConversationService,
+			authentication: myTypes.AuthService ) {
 
 		var chatScope = this;
-		chatScope.myId = authentication.currentUser()._id;
+		chatScope.myId = authentication.currentUser()!._id;
 		var socket = io();
 		
 		socket.on('connect', function() {

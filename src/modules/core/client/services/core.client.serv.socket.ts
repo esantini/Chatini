@@ -4,7 +4,7 @@ angular.module('myChatini')
 	.service('socketComs', socketComs);
 
 socketComs.$inject = ['authentication'];
-function socketComs (authentication: any) {
+function socketComs (authentication: myTypes.AuthService) {
 
 	
 

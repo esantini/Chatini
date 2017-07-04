@@ -7,7 +7,7 @@ angular
 profileCtrl.$inject = ['$location', 'userData', '$cookies', '$translate'];
 function profileCtrl(
 		$location: angular.ILocationService,
-		userData: any,
+		userData: myTypes.UserDataService,
 		$cookies: angular.cookies.ICookiesService,
 		$translate: angular.translate.ITranslateService) {
 

@@ -5,7 +5,7 @@ angular
 	.service('userData', userData);
 
 userData.$inject = ['$http', 'authentication'];
-function userData ($http: angular.IHttpService, authentication: any) {
+function userData ($http: angular.IHttpService, authentication: myTypes.AuthService): myTypes.UserDataService {
 
 	var getProfile = function () {
 		return $http.get('/api/profile', {

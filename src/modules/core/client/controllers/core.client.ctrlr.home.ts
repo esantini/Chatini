@@ -5,7 +5,7 @@
 		.controller('homeCtrl', homeCtrl);
 
 	homeCtrl.$inject = ['authentication', '$rootScope'];
-	function homeCtrl(authentication: any, $rootScope: angular.IRootScopeService) {
+	function homeCtrl(authentication: myTypes.AuthService, $rootScope: angular.IRootScopeService) {
 
 		var homeScope = this;
 

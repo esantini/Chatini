@@ -4,7 +4,7 @@
 		.controller('GroupFormController', groupFormController);
 
 	groupFormController.$inject = ['$scope', 'converService'];
-	function groupFormController( $scope: angular.IScope, converService: any ) {
+	function groupFormController( $scope: angular.IScope, converService: myTypes.ConversationService ) {
 
 		$scope.groupName = "";
 

@@ -9,8 +9,8 @@ angular.module('myChatini')
 			$mdDialog: angular.material.IDialogService,
 			$timeout: angular.ITimeoutService,
 			$q: angular.IQService,
-			userData: any,
-			converService: any,
+			userData: myTypes.UserDataService,
+			converService: myTypes.ConversationService,
 			groupId: string) {
 		/* TODO:
 			What's better?

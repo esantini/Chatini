@@ -4,7 +4,7 @@ angular.module('myChatini')
 	.service('notifications', notifications);
 
 notifications.$inject = ['authentication'];
-function notifications(authentication: any) {
+function notifications(authentication: myTypes.AuthService) {
 
 	function newNotif() {}
 
