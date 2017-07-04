@@ -8,6 +8,7 @@ import * as tsc from 'gulp-typescript';
 import * as sourcemaps from 'gulp-sourcemaps';
 import * as less from 'gulp-less';
 import * as concat from 'gulp-concat';
+import * as rename from 'gulp-rename';
 import * as path from 'path';
 
 //
@@ -175,6 +176,26 @@ wachAll.push(watchTask);
 			.pipe(sourcemaps.init())
 			.pipe(tsProject())
 			.pipe(sourcemaps.write())
+			.pipe(gulp.dest(dest));
+	});
+
+})(watchTask.taskName, watchTask.src, watchTask.dest);
+
+//
+//
+
+watchTask = {
+	taskName: "myTypes",
+	src: 'src/myTypes.d.ts',
+	dest: 'node_modules/@types/mytypes/'
+};
+wachAll.push(watchTask);
+(function(name: string, src: string | string[], dest: string) {
+	
+	gulp.task(name, function() {
+
+		gulp.src(src)
+			.pipe(rename('index.d.ts'))
 			.pipe(gulp.dest(dest));
 	});
 
