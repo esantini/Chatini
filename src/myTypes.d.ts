@@ -18,8 +18,16 @@ declare namespace myTypes {
 		saveToken(token: string): void,
 		getToken(): string,
 		isLoggedIn(): boolean,
-		register(user: any): angular.IPromise<void>, // TODO input type user
-		login(user: any): angular.IPromise<void>,
+		register(user: { email: string, name: string, password: string }): angular.IPromise<void>,
+		login(user: {email: string, password: string }): angular.IPromise<void>,
 		logout(): void
+	}
+
+	interface ConversationService {
+		myConversations(): angular.IPromise<any>,
+		friendRequest(_id: string): angular.IHttpPromise<{}>,
+		acceptFriendship(newFriendId: string): angular.IHttpPromise<{}>,
+		createGroup(groupName: string): angular.IHttpPromise<{}>,
+		addGroupMember(groupId: string, memberId: string): angular.IHttpPromise<{}>
 	}
 }
