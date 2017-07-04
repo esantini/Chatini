@@ -16,6 +16,18 @@ module.exports = function(config) {
 		// list of files / patterns to load in the browser
 		files: [
 			//'../build/public/**/*.js',
+			'../build/public/javascripts/angular/angular.js',
+			'../build/public/javascripts/angular/angular-animate.min.js',
+			'../build/public/javascripts/angular/angular-aria.min.js',
+			'../build/public/javascripts/angular/angular-messages.min.js',
+			'../build/public/javascripts/angular/angular-cookies.min.js',
+			'../build/public/javascripts/angular/angular-sanitize.min.js',
+			'../build/public/javascripts/angular/angular-material.js',
+			'../build/public/javascripts/angular/angular-ui-router.min.js',
+			'../build/public/javascripts/angular/angular-translate.min.js',
+			'../build/public/javascripts/angular/angular-translate-loader-static-files.min.js',
+			'../node_modules/angular-mocks/angular-mocks.js',
+			'../build/public/javascripts/main.min.js',
 			'dest/tests/**/*.js'
 		],
 
